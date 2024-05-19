@@ -47,15 +47,24 @@ def video_llava(video, inp):
     return outputs
 
 def accuracy(gt_op, pred_op):
-    pass
+    return pred_op==gt_op
 
 def main():
     disable_torch_init()
     video = '/data/rohith/captain_cook/videos/gopro/resolution_360p/8_16_360p.mp4'
     inp = 'Is the microwave safe mug filled with skimmed milk?'
     gt_op = 1
-    pred_op = video_llava(video, inp)
-    print(pred_op)
+    pred = video_llava(video, inp)
+    pred = pred.lower()
+    if 'yes' in pred:
+        pred_op = 1
+    else:
+        pred_op = 0
+    if accuracy(gt_op, pred_op):
+        return 1
+    else:
+        return 0
+
 
 
 if __name__ == '__main__':
