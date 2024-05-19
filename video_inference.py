@@ -69,13 +69,11 @@ def accuracy(pred, gt):
 def ground_truth(video):
     gt = []
     steps = video['steps']
-    for idx in range(len(steps)):
-        info = steps[idx]
-        if info['has_errors']:
+    for step in steps:
+        if step['has_errors']:
             gt.append(0)
         else:
             gt.append(1)
-
     return gt
 
 def main():
