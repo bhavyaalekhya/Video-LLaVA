@@ -1,4 +1,7 @@
 import torch
+import os
+import json
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
 from videollava.model.builder import load_pretrained_model
@@ -46,26 +49,68 @@ def video_llava(video, inp):
     outputs = tokenizer.decode(output_ids[0, input_ids.shape[1]:]).strip()
     return outputs
 
-def accuracy(gt_op, pred_op):
-    return pred_op==gt_op
+def accuracy(pred, gt):
+    pred_flat = [label for sublist in pred for label in sublist]
+    gt_flat = [label for sublist in gt for label in sublist]
+    
+    precision = precision_score(gt_flat, pred_flat, average='micro')
+    recall = recall_score(gt_flat, pred_flat, average='micro')
+    f1 = f1_score(gt_flat, pred_flat, average='micro')
+    accuracy = accuracy_score(gt_flat, pred_flat)
+    
+    return {
+        'precision': precision,
+        'recall': recall,
+        'f1_score': f1,
+        'accuracy': accuracy
+    }
+
+def ground_truth(video):
+    gt = []
+    steps = video['steps']
+    for idx in range(len(steps)):
+        info = steps[idx]
+        if info['has_errors']:
+            gt.append(0)
+        else:
+            gt.append(1)
+
+    return gt
 
 def main():
     disable_torch_init()
-    video = '/data/rohith/captain_cook/videos/gopro/resolution_360p/8_16_360p.mp4'
-    inp = 'Is the microwave safe mug filled with skimmed milk?'
-    gt_op = 1
-    pred = video_llava(video, inp)
-    pred = pred.lower()
-    if 'yes' in pred:
-        pred_op = 1
-    else:
-        pred_op = 0
-    if accuracy(gt_op, pred_op):
-        return 1
-    else:
-        return 0
+    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
+    questions_file = './questions.json'
+    gt_file = './step_annotations.json'
+    with open(questions_file, 'r') as f:
+        qs = json.load(f)
 
+    with open(gt_file, 'r') as file:
+        gt =json.load(file)
+    
+    predicted = []
+    g_truth = []
+    for v in os.listdir(video_dir):
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        gt = ground_truth(gt_name)
+        g_truth.append(gt)
+        related_questions = qs[name[0] + "_x"]["questions"]
+        pred_op = []
+        for q in related_questions:
+            inp = q
+            pred = video_llava(video, inp)
+            pred = pred.lower()
+            if 'yes' in pred:
+                pred_op.append(1)
+            else:
+                pred_op.append(0)
 
+        predicted.append(pred_op)
 
+    metrics = accuracy(predicted, g_truth)
+
+    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")       
 if __name__ == '__main__':
     main()
