@@ -5,10 +5,7 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-def main():
-    disable_torch_init()
-    video = '/data/rohith/captain_cook/videos/gopro/resolution_360p/1_10_360p.mp4'
-    inp = 'What is being cooked in this video?'
+def video_llava(video, inp):
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
@@ -47,7 +44,19 @@ def main():
             stopping_criteria=[stopping_criteria])
 
     outputs = tokenizer.decode(output_ids[0, input_ids.shape[1]:]).strip()
-    print(outputs)
+    return outputs
+
+def accuracy(gt_op, pred_op):
+    pass
+
+def main():
+    disable_torch_init()
+    video = '/data/rohith/captain_cook/videos/gopro/resolution_360p/8_16_360p.mp4'
+    inp = 'Is the microwave safe mug filled with skimmed milk?'
+    gt_op = 1
+    pred_op = video_llava(video, inp)
+    print(pred_op)
+
 
 if __name__ == '__main__':
     main()
