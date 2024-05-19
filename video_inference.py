@@ -85,7 +85,7 @@ def main():
         qs = json.load(f)
 
     with open(gt_file, 'r') as file:
-        gt =json.load(file)
+        gt_f =json.load(file)
     
     predicted = []
     g_truth = []
@@ -93,7 +93,7 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        gt = ground_truth(gt_name)
+        gt = ground_truth(gt_f[gt_name])
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
