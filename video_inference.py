@@ -1,6 +1,7 @@
 import torch
 import os
 import json
+from tqdm import tqdm
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
@@ -90,7 +91,7 @@ def main():
     
     predicted = []
     g_truth = []
-    for v in os.listdir(video_dir):
+    for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
@@ -98,7 +99,9 @@ def main():
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
-        for q in related_questions:
+
+        # Iterate over the related questions with progress tracking using tqdm
+        for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
             inp = q
             pred = video_llava(video, inp)
             pred = pred.lower()
