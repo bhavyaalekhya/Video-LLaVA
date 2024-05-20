@@ -112,8 +112,6 @@ def main():
 
     metrics = accuracy(predicted, g_truth)
 
-    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")  
-    with open('./outputs.txt', 'w') as file:
-        file.write(f'Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}')     
+    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")       
 if __name__ == '__main__':
     main()
