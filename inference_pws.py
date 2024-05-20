@@ -51,9 +51,12 @@ def video_llava(video, inp):
     return outputs
 
 def accuracy(pred, gt):
-    pred_flat = [label for sublist in pred for label in sublist]
-    gt_flat = [label for sublist in gt for label in sublist]
+    pred_pairs = [pair for sublist in pred for pair in sublist]
+    gt_pairs = [pair for sublist in gt for pair in sublist]
     
+    pred_flat = [label for pair in pred_pairs for label in pair]
+    gt_flat = [label for pair in gt_pairs for label in pair]
+
     precision = precision_score(gt_flat, pred_flat, average='micro')
     recall = recall_score(gt_flat, pred_flat, average='micro')
     f1 = f1_score(gt_flat, pred_flat, average='micro')
@@ -67,14 +70,14 @@ def accuracy(pred, gt):
     }
 
 def ground_truth(video):
-    gt = []
+    gt_pairs = []
     steps = video['steps']
-    for step in steps:
-        if step['has_errors']:
-            gt.append(0)
-        else:
-            gt.append(1)
-    return gt
+    for i in range(len(steps)):
+        for j in range(i + 1, len(steps)):
+            first_step = 1 if not steps[i]['has_errors'] else 0
+            second_step = 1 if not steps[j]['has_errors'] else 0
+            gt_pairs.append((first_step, second_step))
+    return gt_pairs
 
 def main():
     disable_torch_init()
@@ -85,7 +88,7 @@ def main():
         qs = json.load(f)
 
     with open(gt_file, 'r') as file:
-        gt_f =json.load(file)
+        gt_f = json.load(file)
     
     predicted = []
     g_truth = []
@@ -98,20 +101,37 @@ def main():
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
 
-        # Iterate over the related questions with progress tracking using tqdm
-        for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
-            inp = q
-            pred = video_llava(video, inp)
-            pred = pred.lower()
-            if 'yes' in pred:
-                pred_op.append(1)
-            else:
-                pred_op.append(0)
+        # Generate predictions for all pairs of steps
+        num_pairs = (len(related_questions) * (len(related_questions) - 1)) // 2
+        print(f"Number of pairs for {v}: {num_pairs}")
+
+        for i in range(len(related_questions)):
+            for j in range(i + 1, len(related_questions)):
+                q1 = related_questions[i]
+                q2 = related_questions[j]
+                
+                pred1 = video_llava(video, q1).lower()
+                pred2 = video_llava(video, q2).lower()
+                
+                pred1_op = 1 if 'yes' in pred1 else 0
+                pred2_op = 1 if 'yes' in pred2 else 0
+                
+                pred_op.append((pred1_op, pred2_op))
 
         predicted.append(pred_op)
 
     metrics = accuracy(predicted, g_truth)
 
-    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")       
+    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")  
+
+    with open('metrics.txt', 'a+') as file:
+        content = '\n For pairwise step verification: \n Accuracy: {} \n F1: {} \n Recall: {} \n Precision: {}'.format(
+            metrics['accuracy'],
+            metrics['f1_score'],
+            metrics['recall'],
+            metrics['precision']
+        )
+        pass     
+
 if __name__ == '__main__':
     main()
