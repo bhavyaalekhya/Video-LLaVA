@@ -9,26 +9,25 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-def video_llava(video, inp):
-    model_path = 'LanguageBind/Video-LLaVA-7B'
-    cache_dir = 'cache_dir'
-    device = 'cuda'
-    load_4bit, load_8bit = True, False
+def load_model(model_path, device, cache_dir, load_4bit=True, load_8bit=False):
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, processor, _ = load_pretrained_model(model_path, None, model_name, load_8bit, load_4bit, device=device, cache_dir=cache_dir)
+    return tokenizer, model, processor
+
+def process_video(video_path, question, tokenizer, model, processor):
     video_processor = processor['video']
     conv_mode = "llava_v1"
     conv = conv_templates[conv_mode].copy()
     roles = conv.roles
 
-    video_tensor = video_processor(video, return_tensors='pt')['pixel_values']
+    video_tensor = video_processor(video_path, return_tensors='pt')['pixel_values']
     if type(video_tensor) is list:
         tensor = [video.to(model.device, dtype=torch.float16) for video in video_tensor]
     else:
         tensor = video_tensor.to(model.device, dtype=torch.float16)
 
-    print(f"{roles[1]}: {inp}")
-    inp = ' '.join([DEFAULT_IMAGE_TOKEN] * model.get_video_tower().config.num_frames) + '\n' + inp
+    print(f"{roles[1]}: {question}")
+    inp = ' '.join([DEFAULT_IMAGE_TOKEN] * model.get_video_tower().config.num_frames) + '\n' + question
     conv.append_message(conv.roles[0], inp)
     conv.append_message(conv.roles[1], None)
     prompt = conv.get_prompt()
@@ -81,6 +80,13 @@ def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
+    model_path = 'LanguageBind/Video-LLaVA-7B'
+    cache_dir = 'cache_dir'
+    device = 'cuda'
+    load_4bit, load_8bit = True, False
+
+    tokenizer, model, processor = load_model(model_path, device, cache_dir, load_4bit, load_8bit)
+
     with open(questions_file, 'r') as f:
         qs = json.load(f)
 
@@ -101,7 +107,7 @@ def main():
         # Iterate over the related questions with progress tracking using tqdm
         for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
             inp = q
-            pred = video_llava(video, inp)
+            pred = process_video(video, inp, tokenizer, model, processor)
             pred = pred.lower()
             if 'yes' in pred:
                 pred_op.append(1)
