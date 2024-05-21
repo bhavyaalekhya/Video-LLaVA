@@ -91,7 +91,7 @@ def main():
         qs = json.load(f)
 
     with open(gt_file, 'r') as file:
-        gt_f =json.load(file)
+        gt_f = json.load(file)
     
     predicted = []
     g_truth = []
@@ -115,6 +115,10 @@ def main():
                 pred_op.append(0)
 
         predicted.append(pred_op)
+
+    # Validate that predicted and g_truth are lists of lists
+    assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"
+    assert all(isinstance(i, list) for i in g_truth), "g_truth is not a list of lists"
 
     metrics = accuracy(predicted, g_truth)
 
