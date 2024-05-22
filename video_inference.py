@@ -77,7 +77,7 @@ def ground_truth(video):
 
 def main():
     disable_torch_init()
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/5_22_360p.mp4'
+    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
@@ -95,27 +95,27 @@ def main():
     
     predicted = []
     g_truth = []
-    #for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-    v = '5_22_360.mp4'
+    for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
+    #v = '5_22_360.mp4'
     #video = os.path.join(video_dir, v)
-    name = v.split("_")
-    gt_name = name[0] + '_' + name[1]
-    gt = ground_truth(gt_f[gt_name])
-    g_truth.append(gt)
-    related_questions = qs[name[0] + "_x"]["questions"]
-    pred_op = []
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        gt = ground_truth(gt_f[gt_name])
+        g_truth.append(gt)
+        related_questions = qs[name[0] + "_x"]["questions"]
+        pred_op = []
 
-    # Iterate over the related questions with progress tracking using tqdm
-    for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
-        inp = q
-        pred = process_video(video_dir, inp, tokenizer, model, processor)
-        pred = pred.lower()
-        if 'yes' in pred:
-            pred_op.append(1)
-        else:
-            pred_op.append(0)
+        # Iterate over the related questions with progress tracking using tqdm
+        for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            inp = q
+            pred = process_video(video_dir, inp, tokenizer, model, processor)
+            pred = pred.lower()
+            if 'yes' in pred:
+                pred_op.append(1)
+            else:
+                pred_op.append(0)
 
-    predicted.append(pred_op)
+        predicted.append(pred_op)
 
     # Validate that predicted and g_truth are lists of lists
     assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"

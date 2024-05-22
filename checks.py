@@ -21,8 +21,7 @@ def main():
 
     lists = ground_truth(cont, qs)
 
-    for i in lists:
-        print(i)
+    print(lists)
 
 if __name__=='__main__':
     main()
