@@ -68,7 +68,7 @@ def accuracy(pred, gt):
 def ground_truth(video):
     gt = []
     steps = video['steps']
-    print(steps)
+    #print(steps)
     for step in steps:
         if step['has_errors']=='true':
             gt.append(0)
@@ -97,7 +97,7 @@ def main():
     predicted = []
     g_truth = []
     #for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-    v = '8_16_360.mp4'
+    v = '8_11_360.mp4'
     #video = os.path.join(video_dir, v)
     name = v.split("_")
     gt_name = name[0] + '_' + name[1]
