@@ -276,15 +276,16 @@
             "Is the person mincing garlic cloves?",
             "Is the person heating 1 tbsp olive oil in a large skillet over medium-high heat?",
             "Is the person adding the mushrooms once the pan is hot?",
-            "Is the person cooking the mushrooms for 3-5 minutes, stirring often, until they start to soften and brown?",
+            "Is the person cooking for 3-5 minutes, stirring often, until mushrooms start to soften and brown?",
             "Is the person adding chopped shallot to the pan?",
             "Is the person cooking the pan, often stirring, for 1 minute?",
             "Is the person adding 2 cloves of minced garlic to the pan?",
             "Is the person adding 1/4 tbsp balsamic vinegar to the pan?",
-            "Is the person seasoning the pan with pepper to taste?",
+            "Is the person cooking the pan, often stirring, for 1 minute?",
+            "Is the person seasoning with pepper on pan to taste?",
             "Is the person seasoning the pan with salt?",
             "Is the person transferring the contents of the pan to a serving dish?"
-        ]
+        ]    
     },
     "21_x": {
         "questions": [
