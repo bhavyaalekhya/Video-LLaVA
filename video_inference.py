@@ -11,7 +11,7 @@ from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
 wandb.init(
-    project="Video-LLaVA",
+    project="Task_Verification",
     entity="vsbhavyaalekhya"
 )
 
