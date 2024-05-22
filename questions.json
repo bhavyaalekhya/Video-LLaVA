@@ -56,20 +56,21 @@
     "4_x": {
         "questions": [
             "Is the person peeling 1 garlic clove?",
-            "Is the person chopping 1 garlic clove on a cutting board?",
-            "Is the person removing the noodles from the package (breaking the noodles or keeping them as a block)?",
+            "Is the person removing the noodles from the package (break noodles / keep them as a block)?",
             "Is the person peeling 1 medium onion?",
-            "Is the person slicing 1/4 medium onion into pieces?",
+            "Is the person chopping 1 garlic clove on a cutting board?",
             "Is the person putting all the vegetables in a microwave-safe bowl?",
-            "Is the person adding the noodles to the bowl?",
-            "Is the person covering the noodles with water?",
-            "Is the person covering the bowl with a lid (or paper towel) to prevent splattering?",
-            "Is the person microwaving the ramen for 4 minutes?",
+            "Is the person slicing 1/4 medium onion into pieces?",
             "Is the person adding basil to the bowl?",
-            "Is the person letting the noodles sit for about 1 minute after the microwave stops?",
+            "Is the person covering the noodles with water?",
+            "Is the person covering with a lid (or paper towel) to prevent splattering?",
+            "Is the person microwaving the ramen for 4 minutes?",
+            "Is the person adding the noodles to the bowl?",
+            "Is the person microwaving the ramen for 4 minutes?",
             "Is the person adding chopped cilantro to the bowl?",
-            "Is the person mixing in the flavor packet to the bowl?",
-            "Is the person stirring the noodles with a spoon or fork until the flavoring dissolves?"
+            "Is the person letting the noodles sit for about 1 minute after the microwave stops?",
+            "Is the person mixing in the flavour packet to the bowl?",
+            "Is the person stirring the noodles with a spoon or fork until the flavouring dissolves?"
         ]
     },
     "5_x": {
