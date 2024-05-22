@@ -18,21 +18,23 @@
     "2_x": {
         "questions": [
             "Is the person peeling 1 garlic clove?",
+            "Is the person mixing 1/4 cup sweet-and-sour sauce and 1/2 teaspoon soy sauce in a small bowl?",
+            "Is the person placing 5 meatballs on a microwave-safe plate?",
+            "Is the person microwaving the plate, covered, on high for 1.5 minutes?",
+            "Is the person cutting 1/4 medium carrot into short, thin strips?",
+            "Is the person peeling one medium onion?",
+            "Is the person cutting the onion into two pieces?",
+            "Is the person slicing 1/8 medium onion?",
             "Is the person cutting 1/8 garlic clove?",
             "Is the person mincing 1/8 garlic clove?",
-            "Is the person mixing 1/4 cup sweet-and-sour sauce and 1/2 teaspoon soy sauce in a small bowl?",
-            "Is the person peeling one medium onion?",
-            "Is the person placing 5 meatballs on a microwave-safe plate?",
-            "Is the person cutting the onion into two pieces?",
-            "Is the person cutting 1/4 medium carrot into short, thin strips?",
-            "Is the person slicing 1/8 medium onion?",
             "Is the person topping the plate with the carrots, onion, garlic, and 1/4 tsp pepper powder?",
-            "Is the person pouring the sauces over the meatballs?",
+            "Is the person stirring the contents in the microwave with a spoon?",
             "Is the person microwaving the plate, covered, on high for 1.5 minutes?",
+            "Is the person pouring the sauces over the meatballs?",
             "Is the person stirring the contents in the microwave with a spoon?",
-            "Is the person microwaving the plate, covered, on high for another 1.5 minutes?",
+            "Is the person microwaving for 1 more minute?",
             "Is the person stirring the contents in the microwave with a spoon?",
-            "Is the person microwaving the plate for 1 more minute?"
+            "Is the person microwaving for 1 more minute?"
         ]
     },
     "3_x": {
