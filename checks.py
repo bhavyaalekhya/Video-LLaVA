@@ -2,12 +2,12 @@ import json
 
 def ground_truth(video):
     gt = []
-    steps = video['steps']
-    for step in steps:
-        if step['has_errors']==True:
-            gt.append(0)
-        else:
-            gt.append(1)
+    for v, info in video.items():
+        for step in info['steps']:
+            if step['has_errors']==True:
+                gt.append(0)
+            else:
+                gt.append(1)
     return gt
 
 def main():
