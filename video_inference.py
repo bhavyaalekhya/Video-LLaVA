@@ -105,7 +105,7 @@ def main():
     wandb.watch(model, log="all")
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
     #v = '5_22_360.mp4'
-    #video = os.path.join(video_dir, v)
+        video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
         gt = ground_truth(gt_f[gt_name])
@@ -116,7 +116,7 @@ def main():
         # Iterate over the related questions with progress tracking using tqdm
         for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
             inp = q
-            pred = process_video(video_dir, inp, tokenizer, model, processor)
+            pred = process_video(video, inp, tokenizer, model, processor)
             pred = pred.lower()
             if 'yes' in pred:
                 pred_op.append(1)
