@@ -70,7 +70,7 @@ def ground_truth(video):
     steps = video['steps']
     print(steps)
     for step in steps:
-        if step['has_errors']=='true':
+        if step['has_errors']==True:
             gt.append(0)
         else:
             gt.append(1)
