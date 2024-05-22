@@ -3,11 +3,13 @@ import json
 def ground_truth(video):
     gt = []
     for v, info in video.items():
+        g = []
         for step in info['steps']:
             if step['has_errors']==True:
-                gt.append(0)
+                g.append(0)
             else:
-                gt.append(1)
+                g.append(1)
+        gt.append(g)
     return gt
 
 def main():
