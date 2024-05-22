@@ -2,12 +2,18 @@ import torch
 import os
 import json
 from tqdm import tqdm
+import wandb
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
 from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
+
+wandb.init(
+    project="Video-LLaVA",
+    entity="vsbhavyaalekhya"
+)
 
 def load_model(model_path, device, cache_dir, load_4bit=True, load_8bit=False):
     model_name = get_model_name_from_path(model_path)
@@ -95,6 +101,8 @@ def main():
     
     predicted = []
     g_truth = []
+
+    wandb.watch(model, log="all")
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
     #v = '5_22_360.mp4'
     #video = os.path.join(video_dir, v)
@@ -115,6 +123,13 @@ def main():
             else:
                 pred_op.append(0)
 
+        if len(gt)==len(pred_op):
+            video_metrics = accuracy(gt, pred_op)
+            wandb.log({'video':v, 'accuracy': video_metrics['accuracy'], 'recall': video_metrics['recall'], 'f1_score': video_metrics['f1_score'], 'precision': video_metrics['precision']})
+
+        else:
+            wandb.log({'video': v})
+
         predicted.append(pred_op)
 
     # Validate that predicted and g_truth are lists of lists
@@ -124,6 +139,8 @@ def main():
     print('predicted: ',predicted)
     print('ground_truth: ',g_truth)
     metrics = accuracy(predicted, g_truth)
+
+    wandb.log({'value':'total dataset', 'accuracy': metrics['accuracy'], 'recall': metrics['recall'], 'f1_score': metrics['f1_score'], 'precision': metrics['precision']})
 
     print("Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision}".format(
         accuracy=metrics['accuracy'],
