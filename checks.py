@@ -1,5 +1,5 @@
 import spacy
-
+spacy.cli.download("en_core_web_sm")
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
 
