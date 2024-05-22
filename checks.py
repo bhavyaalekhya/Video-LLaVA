@@ -5,7 +5,9 @@ def ground_truth(video, qs):
     for v, info in video.items():
         name = v.split("_")[0]+'_x'
         q = qs[name]
-        gt.append((len(q['questions']), len(info['steps'])))
+        if len(q['questions'])!=len(info['steps']):
+            gt.append((v, len(q['questions']), len(info['steps'])))
+
     return gt
 
 def main():
