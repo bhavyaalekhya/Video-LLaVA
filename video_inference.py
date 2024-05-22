@@ -77,7 +77,7 @@ def ground_truth(video):
 
 def main():
     disable_torch_init()
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/8_16_360p.mp4'
+    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/8_11_360p.mp4'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
