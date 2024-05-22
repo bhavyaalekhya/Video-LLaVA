@@ -20,7 +20,7 @@ def main():
     lists = ground_truth(cont, qs)
 
 
-    print(len(lists))
+    print(lists)
 
 if __name__=='__main__':
     main()
