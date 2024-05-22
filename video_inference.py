@@ -77,7 +77,7 @@ def ground_truth(video):
 
 def main():
     disable_torch_init()
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/7_32_360p.mp4'
+    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/5_22_360p.mp4'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
@@ -96,7 +96,7 @@ def main():
     predicted = []
     g_truth = []
     #for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-    v = '7_32_360.mp4'
+    v = '5_22_360.mp4'
     #video = os.path.join(video_dir, v)
     name = v.split("_")
     gt_name = name[0] + '_' + name[1]
