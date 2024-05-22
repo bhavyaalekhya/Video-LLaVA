@@ -1,28 +1,26 @@
 import json
 
-def ground_truth(video):
+def ground_truth(video, qs):
     gt = []
     for v, info in video.items():
-        g = []
-        for step in info['steps']:
-            if step['has_errors']==True:
-                g.append(0)
-            else:
-                g.append(1)
-        gt.append(g)
+        name = v.split("_")[0]+'_x'
+        q = qs[name]
+        gt.append(len(qs), len(info['steps']))
     return gt
 
 def main():
     json_file = './step_annotations.json'
+    qs_file = './questions.json'
     with open(json_file, 'r') as f:
         cont = json.load(f)
 
-    lists = ground_truth(cont)
+    with open(qs_file, 'r') as file:
+        qs = json.load(file)
 
-    gt_flat = [label for sublist in lists for label in sublist]
+    lists = ground_truth(cont, qs)
+
 
     print(len(lists))
-    print(len(gt_flat))
 
 if __name__=='__main__':
     main()
