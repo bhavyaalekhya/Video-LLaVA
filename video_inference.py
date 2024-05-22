@@ -71,6 +71,19 @@ def accuracy(pred, gt):
         'accuracy': accuracy
     }
 
+def acc(pred, gt):
+    precision = precision_score(gt, pred, average='micro')
+    recall = recall_score(gt, pred, average='micro')
+    f1 = f1_score(gt, pred, average='micro')
+    accuracy = accuracy_score(gt, pred)
+    
+    return {
+        'precision': precision,
+        'recall': recall,
+        'f1_score': f1,
+        'accuracy': accuracy
+    }
+
 def ground_truth(video):
     gt = []
     steps = video['steps']
@@ -124,7 +137,7 @@ def main():
                 pred_op.append(0)
 
         if len(gt)==len(pred_op):
-            video_metrics = accuracy(gt, pred_op)
+            video_metrics = acc(gt, pred_op)
             wandb.log({'video':v, 'accuracy': video_metrics['accuracy'], 'recall': video_metrics['recall'], 'f1_score': video_metrics['f1_score'], 'precision': video_metrics['precision']})
 
         else:
