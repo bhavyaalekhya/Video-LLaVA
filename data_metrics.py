@@ -24,18 +24,22 @@ df3 = pd.read_csv(recall_file)
 
 df3['video-llava - recall'] = pd.to_numeric(df3['video-llava - recall'], errors='coerce')
 
-df4 = df1.append(df2).append(df3)
+df4 = pd.merge(df3, df2, on='Step')
+df4 = pd.merge(df4, df1, on='Step')
+
+df_selected = df4[['Step', 'video-llava - recall', 'video-llava - precision', 'video-llava - f1_score']]
+df_selected.columns = ['Step', 'r', 'p', 'f1']
 
 tp = 0
 fp = 0
 fn = 0
 
 for idx, row in df4.iterrows():
-    tp_i = (row['video-llava f1_score'] * (row['video-llava precision'] + row['video-llava recall']))/(2*row['video-llava precision']*row['video-llava recall'])
+    tp_i = (row['f1'] * (row['p'] + row['r']))/(2*row['p']*row['r'])
 
-    fp_i = (tp_i) * ((1/row['video-llava precision'])-1)
+    fp_i = (tp_i) * ((1/row['p'])-1)
 
-    fn_i = (tp_i) * ((1/row['video-llava recall'])-1)
+    fn_i = (tp_i) * ((1/row['r'])-1)
 
     tp += tp_i
     fp += fp_i
