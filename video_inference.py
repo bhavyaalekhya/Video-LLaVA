@@ -84,14 +84,17 @@ def acc(pred, gt):
         'accuracy': accuracy
     }
 
-def ground_truth(video):
+def ground_truth(name, video, normal_annot):
     gt = []
     steps = video['steps']
+    normal = name + '_x'
+    n_steps = normal_annot[normal]['steps']
     for step in steps:
-        if step['has_errors']==True:
-            gt.append(0)
-        else:
-            gt.append(1)
+        if step['description'] in n_steps:
+            if step['has_errors']==True:
+                gt.append(0)
+            else:
+                gt.append(1)
     return gt
 
 def main():
@@ -99,6 +102,7 @@ def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
+    normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
@@ -121,7 +125,7 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        gt = ground_truth(gt_f[gt_name])
+        gt = ground_truth(name[0], gt_f[gt_name], normal_annot)
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
