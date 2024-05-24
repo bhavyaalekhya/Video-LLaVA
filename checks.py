@@ -4,22 +4,26 @@ def ground_truth(video, qs, n_annot):
     g_t = []
     for v, info in video.items():
         gt = []
-        name = v.split("_")[0]+'_x'
-        n_steps_desc = []
+        name = v.split("_")[0] + '_x'
+        n_steps_desc = {}
         n_steps = n_annot[name]['steps']
         q = qs[name]
+        
+        # Create a dictionary of normal steps with description and ID
         for step in n_steps:
-            n_steps_desc.append(step['description'])
+            n_steps_desc[step['description']] = step['id']
 
+        # Iterate over the video steps and match with normal steps
         for step in info['steps']:
             if step['description'] in n_steps_desc:
-                if step['has_errors'] == True:
-                    gt.append(0)
-                else:
-                    gt.append(1)
+                step_id = step['id']
+                if step_id in [n_steps_desc[desc] for desc in n_steps_desc]:
+                    if step['has_errors']:
+                        gt.append(0)
+                    else:
+                        gt.append(1)
 
-
-        if len(n_steps_desc)!=len(gt):
+        if len(gt) == len(n_steps_desc):
             g_t.append((v, len(n_steps_desc), len(gt)))
 
     return g_t
@@ -41,5 +45,5 @@ def main():
 
     print(lists)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()
