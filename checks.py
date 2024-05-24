@@ -23,7 +23,7 @@ def ground_truth(video, qs, n_annot):
 
         # Ensure the ground truth length matches the intersection length
         common_steps_count = len(set(n_steps_desc).intersection(set([step['description'] for step in info['steps']])))
-        if len(gt) == common_steps_count:
+        if len(gt) != common_steps_count:
             g_t.append((v, len(n_steps_desc), len(gt)))
 
     return g_t
