@@ -24,7 +24,7 @@ df3 = pd.read_csv(recall_file)
 
 df3['video-llava - recall'] = pd.to_numeric(df3['video-llava - recall'], errors='coerce')
 
-df4 = df1.join([df2,df3])
+df4 = df1.append(df2).append(df3)
 
 tp = 0
 fp = 0
