@@ -34,7 +34,7 @@ tp = 0
 fp = 0
 fn = 0
 
-for idx, row in df4.iterrows():
+for idx, row in df_selected.iterrows():
     tp_i = (row['f1'] * (row['p'] + row['r']))/(2*row['p']*row['r'])
 
     fp_i = (tp_i) * ((1/row['p'])-1)
