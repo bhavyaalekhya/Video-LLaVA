@@ -5,7 +5,6 @@ import json
 def ground_truth(video, qs, n_annot):
     g_t = []
     for v, info in video.items():
-        gt = []
         name = v.split("_")[0] + '_x'
         n_steps_desc = []
         n_steps = n_annot[name]['steps']
@@ -16,22 +15,25 @@ def ground_truth(video, qs, n_annot):
             n_steps_desc.append(step['description'])
 
         # Get the set of common steps between normal steps and video steps
-        common_steps = set(n_steps_desc).intersection(set([step['description'] for step in info['steps']]))
+        video_steps_desc = [step['description'] for step in info['steps']]
+        common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
 
         # Initialize gt with default value (-1) for each common step
         gt = [-1] * len(common_steps)
-        common_steps_list = list(common_steps)
-
-        # Iterate over the video steps and match with normal steps descriptions
+        
+        # Populate gt based on video steps
         for step in info['steps']:
             if step['description'] in common_steps:
-                index = common_steps_list.index(step['description'])
+                index = common_steps.index(step['description'])
                 if step['has_errors']:
                     gt[index] = 0
                 else:
                     gt[index] = 1
 
-        g_t.append((v, len(n_steps_desc), len(gt)))
+        # Ensure gt has the same length as the common steps
+        if len(gt) != len(common_steps):
+            print(f"Length mismatch for video {v}: expected {len(common_steps)}, got {len(gt)}")
+        g_t.append((v, len(n_steps_desc), len(common_steps), gt))
 
     return g_t
 
