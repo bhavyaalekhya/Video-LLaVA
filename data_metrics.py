@@ -14,9 +14,15 @@ overall_accuracy = df['video-llava - accuracy'].mean()
 
 df1 = pd.read_csv(f1_score_file)
 
+df1['video-llava - f1_score'] = pd.to_numeric(df1['video-llava - f1_score'], errors='coerce')
+
 df2 = pd.read_csv(precision_file)
 
+df2['video-llava - precision'] = pd.to_numeric(df2['video-llava - precision'], errors='coerce')
+
 df3 = pd.read_csv(recall_file)
+
+df3['video-llava - recall'] = pd.to_numeric(df3['video-llava - recall'], errors='coerce')
 
 df4 = df1.join([df2,df3])
 
