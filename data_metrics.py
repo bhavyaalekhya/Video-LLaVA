@@ -2,7 +2,7 @@ import pandas as pd
 
 accuracy_file = './accuracy.csv'
 
-df = pd.read(accuracy_file)
+df = pd.read_csv(accuracy_file)
 
 df['video-llava - accuracy'] = pd.to_numeric(df['video-llava - accuracy'], errors='coerce')
 
