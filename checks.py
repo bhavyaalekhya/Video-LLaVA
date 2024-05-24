@@ -11,7 +11,7 @@ def ground_truth(video, qs):
     return gt
 
 def main():
-    json_file = './step_annotations.json'
+    json_file = './normal_videos.json'
     qs_file = './questions.json'
     with open(json_file, 'r') as f:
         cont = json.load(f)
