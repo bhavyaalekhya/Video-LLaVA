@@ -31,7 +31,7 @@ def ground_truth(video, qs, n_annot):
                 else:
                     gt[index] = 1
 
-        g_t.append((v, len(n_steps_desc), len(gt), gt))
+        g_t.append((v, len(n_steps_desc), len(gt)))
 
     return g_t
 
@@ -50,7 +50,9 @@ def main():
 
     lists = ground_truth(cont, qs, n_steps)
 
-    print(lists)
+    for i in lists:
+        if i[1]!=i[2]:
+            print(i)
 
 if __name__ == '__main__':
     main()
