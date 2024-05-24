@@ -96,7 +96,6 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-
     gt = [0] * len(questions)
 
     for step in steps:
