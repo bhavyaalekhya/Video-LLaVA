@@ -121,6 +121,9 @@ def main():
 
     with open(gt_file, 'r') as file:
         gt_f = json.load(file)
+
+    with open(normal_annot, 'r') as f:
+        n_annot = json.load(f)
     
     predicted = []
     g_truth = []
@@ -131,7 +134,7 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        gt = ground_truth(name[0], gt_f[gt_name], normal_annot)
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot)
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
