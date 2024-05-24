@@ -56,24 +56,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-def main():
-    json_file = './step_annotations.json'
-    qs_file = './questions.json'
-    n_annot = './normal_videos.json'
-    with open(json_file, 'r') as f:
-        cont = json.load(f)
-
-    with open(qs_file, 'r') as file:
-        qs = json.load(file)
-
-    with open(n_annot, 'r') as f:
-        n_steps = json.load(f)
-
-    lists = ground_truth(cont, qs, n_steps)
-
-    print(lists)
-
-if __name__ == '__main__':
-    main()
