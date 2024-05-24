@@ -35,19 +35,29 @@ fp = 0
 fn = 0
 
 for idx, row in df_selected.iterrows():
-    tp_i = (row['f1'] * (row['p'] + row['r']))/(2*row['p']*row['r'])
-
-    fp_i = (tp_i) * ((1/row['p'])-1)
-
-    fn_i = (tp_i) * ((1/row['r'])-1)
-
+    if row['p'] == 0 or row['r'] == 0:
+        continue
+    
+    tp_i = (row['f1'] * (row['p'] + row['r'])) / (2 * row['p'] * row['r'])
+    fp_i = tp_i * ((1 / row['p']) - 1)
+    fn_i = tp_i * ((1 / row['r']) - 1)
+    
     tp += tp_i
     fp += fp_i
     fn += fn_i
 
-overall_precision = tp / (fp+tp)
-overall_recall = tp / (tp + fn)
-overall_f1 = (2 * overall_precision * overall_recall) / (overall_precision + overall_recall)
+# Calculate overall precision, recall, and F1 score
+if (fp + tp) == 0 or (tp + fn) == 0:
+    overall_precision = 0
+    overall_recall = 0
+    overall_f1 = 0
+else:
+    overall_precision = tp / (fp + tp)
+    overall_recall = tp / (tp + fn)
+    if (overall_precision + overall_recall) == 0:
+        overall_f1 = 0
+    else:
+        overall_f1 = (2 * overall_precision * overall_recall) / (overall_precision + overall_recall)
 
 print(f'Overall Accuracy: {overall_accuracy:.2f}')
 print(f'Overall F1: {overall_f1:.2f}')
