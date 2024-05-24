@@ -90,18 +90,25 @@ def ground_truth(name, video, normal_annot):
     normal = name + '_x'
     n_steps = normal_annot[normal]['steps']
     n_steps_desc = []
-    
+
     for step in n_steps:
         n_steps_desc.append(step['description'])
-    
+
+    video_steps_desc = [step['description'] for step in steps]
+    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
+
+    gt = [-1] * len(common_steps)
+
     for step in steps:
-        if step['description'] in n_steps_desc:
-            if step['has_errors'] == True:
-                gt.append(0)
+        if step['description'] in common_steps:
+            index = common_steps.index(step['description'])
+            if step['has_errors']:
+                gt[index] = 0
             else:
-                gt.append(1)
-    
+                gt[index] = 1
+
     return gt
+
 
 def main():
     disable_torch_init()
