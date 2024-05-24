@@ -88,7 +88,7 @@ def ground_truth(name, video, normal_annot):
     gt = []
     steps = video['steps']
     normal = name + '_x'
-    n_steps = normal_annot[normal]['steps']
+    n_steps = normal_annot[normal]
     for step in steps:
         if step['description'] in n_steps:
             if step['has_errors']==True:
