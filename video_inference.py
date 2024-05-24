@@ -84,7 +84,7 @@ def acc(pred, gt):
         'accuracy': accuracy
     }
 
-def ground_truth(name, video, normal_annot):
+def ground_truth(name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
     normal = name + '_x'
@@ -97,7 +97,8 @@ def ground_truth(name, video, normal_annot):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
 
-    gt = [-1] * len(common_steps)
+    # Initialize gt with -1 for each question
+    gt = [-1] * len(questions[normal]['questions'])
 
     for step in steps:
         if step['description'] in common_steps:
@@ -108,6 +109,7 @@ def ground_truth(name, video, normal_annot):
                 gt[index] = 1
 
     return gt
+
 
 
 def main():
@@ -141,10 +143,10 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        gt = ground_truth(name[0], gt_f[gt_name], n_annot)
-        g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
+        g_truth.append(gt)
 
         # Iterate over the related questions with progress tracking using tqdm
         for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):

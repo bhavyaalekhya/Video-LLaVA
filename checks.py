@@ -33,7 +33,7 @@ def ground_truth(video, qs, n_annot):
         # Ensure gt has the same length as the common steps
         if len(gt) != len(common_steps):
             print(f"Length mismatch for video {v}: expected {len(common_steps)}, got {len(gt)}")
-        g_t.append((v, len(n_steps_desc), len(common_steps), gt))
+        g_t.append((v, len(n_steps_desc), len(common_steps)))
 
     return g_t
 
@@ -51,10 +51,6 @@ def main():
         n_steps = json.load(f)
 
     lists = ground_truth(cont, qs, n_steps)
-
-    for i in lists:
-        if i[1]!=i[2]:
-            print(i)
 
 if __name__ == '__main__':
     main()
