@@ -97,20 +97,15 @@ def ground_truth(name, video, normal_annot, questions):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
 
-    # Initialize gt with -1 for each question
-    gt = [-1] * len(questions)
+    gt = [0] * len(questions)
 
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            if step['has_errors']:
-                gt[index] = 0
-            else:
+            if not step['has_errors']:
                 gt[index] = 1
 
     return gt
-
-
 
 def main():
     disable_torch_init()
