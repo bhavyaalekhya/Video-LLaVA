@@ -5,25 +5,25 @@ def ground_truth(video, qs, n_annot):
     for v, info in video.items():
         gt = []
         name = v.split("_")[0] + '_x'
-        n_steps_desc = {}
+        n_steps_desc = []
         n_steps = n_annot[name]['steps']
         q = qs[name]
         
-        # Create a dictionary of normal steps with description and ID
+        # Collect normal step descriptions
         for step in n_steps:
-            n_steps_desc[step['description']] = step['id']
+            n_steps_desc.append(step['description'])
 
-        # Iterate over the video steps and match with normal steps
+        # Iterate over the video steps and match with normal steps descriptions
         for step in info['steps']:
             if step['description'] in n_steps_desc:
-                step_id = step['id']
-                if step_id in [n_steps_desc[desc] for desc in n_steps_desc]:
-                    if step['has_errors']:
-                        gt.append(0)
-                    else:
-                        gt.append(1)
+                if step['has_errors']:
+                    gt.append(0)
+                else:
+                    gt.append(1)
 
-        if len(gt) == len(n_steps_desc):
+        # Ensure the ground truth length matches the intersection length
+        common_steps_count = len(set(n_steps_desc).intersection(set([step['description'] for step in info['steps']])))
+        if len(gt) == common_steps_count:
             g_t.append((v, len(n_steps_desc), len(gt)))
 
     return g_t
