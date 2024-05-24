@@ -69,14 +69,15 @@ def accuracy(pred, gt):
         'accuracy': accuracy
     }
 
-def ground_truth(video):
+def ground_truth(video, n_steps):
     gt_pairs = []
     steps = video['steps']
     for i in range(len(steps)):
         for j in range(i + 1, len(steps)):
-            first_step = 1 if not steps[i]['has_errors'] else 0
-            second_step = 1 if not steps[j]['has_errors'] else 0
-            gt_pairs.append((first_step, second_step))
+            if first_step
+                first_step = 1 if not steps[i]['has_errors'] else 0
+                second_step = 1 if not steps[j]['has_errors'] else 0
+                gt_pairs.append((first_step, second_step))
     return gt_pairs
 
 def main():
@@ -84,11 +85,15 @@ def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     questions_file = './questions.json'
     gt_file = './step_annotations.json'
+    normal_annot = './normal_videos.json'
     with open(questions_file, 'r') as f:
         qs = json.load(f)
 
     with open(gt_file, 'r') as file:
         gt_f = json.load(file)
+
+    with open(normal_annot, 'r') as f:
+        n_annot = json.load(f)
     
     predicted = []
     g_truth = []
@@ -96,7 +101,11 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        gt = ground_truth(gt_f[gt_name])
+        n_steps = normal_annot[name[0]+'_x']['steps']
+        n_steps_desc = []
+        for step in n_steps:
+            n_steps_desc.append(step['description'])
+        gt = ground_truth(gt_f[gt_name], n_steps_desc)
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
