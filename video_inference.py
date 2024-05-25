@@ -3,6 +3,7 @@ import os
 import json
 from tqdm import tqdm
 import wandb
+import pandas as pd
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
@@ -55,9 +56,12 @@ def process_video(video_path, question, tokenizer, model, processor):
     outputs = tokenizer.decode(output_ids[0, input_ids.shape[1]:]).strip()
     return outputs
 
+def flatten(l):
+    return [label for sublist in l for label in sublist]
+
 def accuracy(pred, gt):
-    pred_flat = [label for sublist in pred for label in sublist]
-    gt_flat = [label for sublist in gt for label in sublist]
+    pred_flat = flatten(pred)
+    gt_flat = flatten(gt)
     
     precision = precision_score(gt_flat, pred_flat, average='micro')
     recall = recall_score(gt_flat, pred_flat, average='micro')
@@ -106,6 +110,10 @@ def ground_truth(name, video, normal_annot, questions):
 
     return gt
 
+def data_file(data, filename):
+    df = pd.DataFrame(data)
+    df.to_csv(filename, sep=',', mode='a+')
+
 def main():
     disable_torch_init()
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
@@ -115,6 +123,7 @@ def main():
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
+    output_file = './metrics.csv'
     load_4bit, load_8bit = True, False
 
     tokenizer, model, processor = load_model(model_path, device, cache_dir, load_4bit, load_8bit)
@@ -133,7 +142,6 @@ def main():
 
     wandb.watch(model, log="all")
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-    #v = '5_22_360.mp4'
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
@@ -154,11 +162,12 @@ def main():
 
         if len(gt)==len(pred_op):
             video_metrics = acc(gt, pred_op)
+            met = {'v': v, 'a': video_metrics['accuracy'], 'r': video_metrics['recall'], 'p': video_metrics['precision'], 'f1': video_metrics['f1_score'], 'gt': gt, 'pred': pred_op}
+            data_file(met, output_file)
             wandb.log({'video':v, 'accuracy': video_metrics['accuracy'], 'recall': video_metrics['recall'], 'f1_score': video_metrics['f1_score'], 'precision': video_metrics['precision']})
-
         else:
             wandb.log({'video': v})
-
+        
         predicted.append(pred_op)
 
     # Validate that predicted and g_truth are lists of lists
@@ -179,14 +188,19 @@ def main():
         )
     )
 
-    content = "Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision}".format(
+    predicted = flatten(predicted)
+    g_truth = flatten(g_truth)
+
+    content = "Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision} \n Ground Truth: {g_truth} \n Predicted: {predicted}".format(
         accuracy=metrics['accuracy'],
         f1_score=metrics['f1_score'],
         recall=metrics['recall'],
-        precision=metrics['precision']
+        precision=metrics['precision'],
+        g_truth = g_truth,
+        predicted = predicted
     )
 
-    with open('metrics.txt', 'w') as file:
+    with open('data_metrics.txt', 'w') as file:
         file.write(content) 
            
 if __name__ == '__main__':
