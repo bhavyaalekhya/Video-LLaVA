@@ -59,27 +59,11 @@ def process_video(video_path, question, tokenizer, model, processor):
 def flatten(l):
     return [label for sublist in l for label in sublist]
 
-def accuracy(pred, gt):
-    pred_flat = flatten(pred)
-    gt_flat = flatten(gt)
-    
+def accuracy(pred_flat, gt_flat):
     precision = precision_score(gt_flat, pred_flat, average='micro')
     recall = recall_score(gt_flat, pred_flat, average='micro')
     f1 = f1_score(gt_flat, pred_flat, average='micro')
     accuracy = accuracy_score(gt_flat, pred_flat)
-    
-    return {
-        'precision': precision,
-        'recall': recall,
-        'f1_score': f1,
-        'accuracy': accuracy
-    }
-
-def acc(pred, gt):
-    precision = precision_score(gt, pred, average='micro')
-    recall = recall_score(gt, pred, average='micro')
-    f1 = f1_score(gt, pred, average='micro')
-    accuracy = accuracy_score(gt, pred)
     
     return {
         'precision': precision,
@@ -161,9 +145,10 @@ def main():
                 pred_op.append(0)
 
         if len(gt)==len(pred_op):
-            video_metrics = acc(gt, pred_op)
+            video_metrics = accuracy(gt, pred_op)
             met = {'v': v, 'a': video_metrics['accuracy'], 'r': video_metrics['recall'], 'p': video_metrics['precision'], 'f1': video_metrics['f1_score'], 'gt': gt, 'pred': pred_op}
             data_file(met, output_file)
+            print(f'Ground Truth for {v}: {gt} \n Predicted for {v}: {pred_op}')
             wandb.log({'video':v, 'accuracy': video_metrics['accuracy'], 'recall': video_metrics['recall'], 'f1_score': video_metrics['f1_score'], 'precision': video_metrics['precision']})
         else:
             wandb.log({'video': v})
@@ -174,6 +159,8 @@ def main():
     assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"
     assert all(isinstance(i, list) for i in g_truth), "g_truth is not a list of lists"
 
+    predicted = flatten(predicted)
+    g_truth = flatten(g_truth)
     print('predicted: ',predicted)
     print('ground_truth: ',g_truth)
     metrics = accuracy(predicted, g_truth)
@@ -187,9 +174,6 @@ def main():
         precision=metrics['precision']
         )
     )
-
-    predicted = flatten(predicted)
-    g_truth = flatten(g_truth)
 
     content = "Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision} \n Ground Truth: {g_truth} \n Predicted: {predicted}".format(
         accuracy=metrics['accuracy'],
