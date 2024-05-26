@@ -2,6 +2,7 @@ import torch
 import os
 import json
 from tqdm import tqdm
+from itertools import combinations
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
@@ -9,7 +10,7 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-def video_llava(video, inp):
+def load_model():
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
@@ -17,6 +18,9 @@ def video_llava(video, inp):
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, processor, _ = load_pretrained_model(model_path, None, model_name, load_8bit, load_4bit, device=device, cache_dir=cache_dir)
     video_processor = processor['video']
+    return tokenizer, model, video_processor
+
+def video_llava(video, inp, tokenizer, model, video_processor):
     conv_mode = "llava_v1"
     conv = conv_templates[conv_mode].copy()
     roles = conv.roles
@@ -69,15 +73,22 @@ def accuracy(pred, gt):
         'accuracy': accuracy
     }
 
-def ground_truth(video, n_steps):
-    gt_pairs = []
+def ground_truth(video, n_steps, related_questions):
     steps = video['steps']
-    for i in range(len(steps)):
-        for j in range(i + 1, len(steps)):
-            if first_step
-                first_step = 1 if not steps[i]['has_errors'] else 0
-                second_step = 1 if not steps[j]['has_errors'] else 0
-                gt_pairs.append((first_step, second_step))
+    num_pairs = (len(related_questions) * (len(related_questions) - 1)) // 2
+    gt_pairs = [(0,0)] * num_pairs
+    
+    pair_index = 0
+    for i in range(len(related_questions)):
+        for j in range(i + 1, len(related_questions)):
+            first_step = steps[i]['step']
+            second_step = steps[j]['step']
+            if first_step in n_steps and second_step in n_steps:
+                first_step_status = 1 if not steps[i]['has_errors'] else 0
+                second_step_status = 1 if not steps[j]['has_errors'] else 0
+                gt_pairs[pair_index] = (first_step_status, second_step_status)
+                pair_index += 1
+
     return gt_pairs
 
 def main():
@@ -95,17 +106,18 @@ def main():
     with open(normal_annot, 'r') as f:
         n_annot = json.load(f)
     
+    tokenizer, model, video_processor = load_model()
     predicted = []
     g_truth = []
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        n_steps = normal_annot[name[0]+'_x']['steps']
+        n_steps = n_annot[name[0]+'_x']['steps']
         n_steps_desc = []
         for step in n_steps:
             n_steps_desc.append(step['description'])
-        gt = ground_truth(gt_f[gt_name], n_steps_desc)
+        gt = ground_truth(gt_f[gt_name], n_steps_desc, qs[name[0] + "_x"]["questions"])
         g_truth.append(gt)
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
@@ -119,8 +131,8 @@ def main():
                 q1 = related_questions[i]
                 q2 = related_questions[j]
                 
-                pred1 = video_llava(video, q1).lower()
-                pred2 = video_llava(video, q2).lower()
+                pred1 = video_llava(video, q1, tokenizer, model, video_processor).lower()
+                pred2 = video_llava(video, q2, tokenizer, model, video_processor).lower()
                 
                 pred1_op = 1 if 'yes' in pred1 else 0
                 pred2_op = 1 if 'yes' in pred2 else 0
@@ -129,18 +141,16 @@ def main():
 
         predicted.append(pred_op)
 
-    metrics = accuracy(predicted, g_truth)
+    #metrics = accuracy(predicted, g_truth)
 
-    print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")  
+    #print(f"Accuracy: {metrics['accuracy']} \n F1: {metrics['f1_score']} \n Recall: {metrics['recall']} \n Precision: {metrics['precision']}")  
 
-    with open('metrics.txt', 'a+') as file:
-        content = '\n For pairwise step verification: \n Accuracy: {} \n F1: {} \n Recall: {} \n Precision: {}'.format(
-            metrics['accuracy'],
-            metrics['f1_score'],
-            metrics['recall'],
-            metrics['precision']
-        )
-        pass     
+    with open('order_metrics.txt', 'a+') as file:
+        content = '\n For pairwise step verification: Ground Truth: {g_truth} \nPredicted: {predicted}'.format(
+            g_truth = g_truth,
+            predicted = predicted
+        )   
+        file.write(content) 
 
 if __name__ == '__main__':
     main()
