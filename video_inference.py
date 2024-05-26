@@ -60,9 +60,9 @@ def flatten(l):
     return [label for sublist in l for label in sublist]
 
 def accuracy(pred_flat, gt_flat):
-    precision = precision_score(gt_flat, pred_flat, average='micro')
-    recall = recall_score(gt_flat, pred_flat, average='micro')
-    f1 = f1_score(gt_flat, pred_flat, average='micro')
+    precision = precision_score(gt_flat, pred_flat)
+    recall = recall_score(gt_flat, pred_flat)
+    f1 = f1_score(gt_flat, pred_flat)
     accuracy = accuracy_score(gt_flat, pred_flat)
     
     return {
@@ -145,7 +145,7 @@ def main():
                 pred_op.append(0)
 
         if len(gt)==len(pred_op):
-            video_metrics = accuracy(pred_op, gt)
+            video_metrics = accuracy(gt, pred_op)
             met = {'v': v, 'a': video_metrics['accuracy'], 'r': video_metrics['recall'], 'p': video_metrics['precision'], 'f1': video_metrics['f1_score'], 'gt': gt, 'pred': pred_op}
             data_file(met, output_file)
             print(f'Ground Truth for {v}: {gt} \n Predicted for {v}: {pred_op}')

@@ -21,6 +21,9 @@ error_mask = ground_truth == 0
 gt_filtered = ground_truth[error_mask]
 pred_filtered = predicted[error_mask]
 
+print(gt_filtered)
+print(pred_filtered)
+
 r = recall_score(gt_filtered, pred_filtered)
 
 p = precision_score(gt_filtered, pred_filtered)

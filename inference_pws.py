@@ -57,9 +57,9 @@ def accuracy(pred, gt):
     pred_flat = [label for pair in pred_pairs for label in pair]
     gt_flat = [label for pair in gt_pairs for label in pair]
 
-    precision = precision_score(gt_flat, pred_flat, average='micro')
-    recall = recall_score(gt_flat, pred_flat, average='micro')
-    f1 = f1_score(gt_flat, pred_flat, average='micro')
+    precision = precision_score(gt_flat, pred_flat)
+    recall = recall_score(gt_flat, pred_flat)
+    f1 = f1_score(gt_flat, pred_flat)
     accuracy = accuracy_score(gt_flat, pred_flat)
     
     return {
