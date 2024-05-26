@@ -86,8 +86,8 @@ def ground_truth(video, n_steps, related_questions):
     pair_index = 0
     for i in range(len(related_questions)):
         for j in range(i + 1, len(related_questions)):
-            first_step = steps[i]['step']
-            second_step = steps[j]['step']
+            first_step = steps[i]['description']
+            second_step = steps[j]['description']
             if first_step in n_steps and second_step in n_steps:
                 first_step_status = 1 if not steps[i]['has_errors'] else 0
                 second_step_status = 1 if not steps[j]['has_errors'] else 0
