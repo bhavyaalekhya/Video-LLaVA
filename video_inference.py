@@ -145,7 +145,7 @@ def main():
                 pred_op.append(0)
 
         if len(gt)==len(pred_op):
-            video_metrics = accuracy(gt, pred_op)
+            video_metrics = accuracy(pred_op, gt)
             met = {'v': v, 'a': video_metrics['accuracy'], 'r': video_metrics['recall'], 'p': video_metrics['precision'], 'f1': video_metrics['f1_score'], 'gt': gt, 'pred': pred_op}
             data_file(met, output_file)
             print(f'Ground Truth for {v}: {gt} \n Predicted for {v}: {pred_op}')
@@ -163,7 +163,7 @@ def main():
     g_truth = flatten(g_truth)
     print('predicted: ',predicted)
     print('ground_truth: ',g_truth)
-    metrics = accuracy(predicted, g_truth)
+    metrics = accuracy(g_truth, predicted)
 
     wandb.log({'value':'total dataset', 'accuracy': metrics['accuracy'], 'recall': metrics['recall'], 'f1_score': metrics['f1_score'], 'precision': metrics['precision']})
 
