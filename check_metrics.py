@@ -17,7 +17,7 @@ print(f'Recall: {recall} \nPrecision: {precision} \nF1: {f1} \nAccuracy: {acc}')
 
 ground_truth = np.array(ground_truth)
 predicted = np.array(predicted)
-error_mask = np.where(ground_truth == 0)[0]
+error_mask = ground_truth == 0
 gt_filtered = ground_truth[error_mask]
 pred_filtered = predicted[error_mask]
 
