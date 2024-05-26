@@ -2,13 +2,18 @@ import torch
 import os
 import json
 from tqdm import tqdm
-from itertools import combinations
+import wandb
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from videollava.conversation import conv_templates, SeparatorStyle
 from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
+
+wandb.init(
+    project="Task_Verification",
+    entity="vsbhavyaalekhya"
+)
 
 def load_model():
     model_path = 'LanguageBind/Video-LLaVA-7B'
@@ -109,6 +114,7 @@ def main():
     tokenizer, model, video_processor = load_model()
     predicted = []
     g_truth = []
+    wandb.watch(model, log='all')
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
         video = os.path.join(video_dir, v)
         name = v.split("_")
@@ -139,6 +145,7 @@ def main():
                 
                 pred_op.append((pred1_op, pred2_op))
 
+        wandb.log({'gt': gt, 'pred': pred_op})
         predicted.append(pred_op)
 
     #metrics = accuracy(predicted, g_truth)
