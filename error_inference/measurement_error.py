@@ -102,6 +102,13 @@ def main():
 
     with open(questions_file, 'r') as f:
         qs = json.load(f)
+    
+    # Check the structure of qs
+    print(f"Type of qs: {type(qs)}")
+    if isinstance(qs, dict):
+        print(f"Sample keys in qs: {list(qs.keys())[:2]}")
+    else:
+        raise ValueError("Expected qs to be a dictionary")
 
     with open(gt_file, 'r') as file:
         gt_f = json.load(file)
@@ -116,8 +123,13 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
-        print(qs["28_x"])
-        related_questions = qs[name[0] + "_x"]["questions"]
+        
+        related_questions_key = name[0] + "_x"
+        if related_questions_key not in qs:
+            print(f"Key {related_questions_key} not found in questions. Skipping video {v}.")
+            continue
+        
+        related_questions = qs[related_questions_key]["questions"]
         pred_op = []
         gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
         g_truth.append(gt)
@@ -127,7 +139,7 @@ def main():
             inp = related_questions[i]['q']
             pred = process_video(video, inp, tokenizer, model, processor).lower()
             if 'yes' in pred:
-                if 'followup' in related_questions[i].keys():
+                if 'followup' in related_questions[i]:
                     preds = [0]
                     qs = related_questions[i]['followup']
                     for follow_up in qs:
@@ -155,8 +167,8 @@ def main():
         predicted = predicted
     )
 
-    #with open(output_file, 'w') as file:
-    #    file.write(content) 
+    with open(output_file, 'w') as file:
+        file.write(content) 
            
 if __name__ == '__main__':
     main()
