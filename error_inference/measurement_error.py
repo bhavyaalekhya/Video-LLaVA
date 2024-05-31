@@ -115,7 +115,7 @@ def main():
         related_key = name[0] + '_x'
         print(f'-----------------> {related_key} <-----------------')
         print(f'---------------> {type(related_key)} <---------------')
-        data = qs.get(related_key)
+        data = qs[related_key]
         related_questions = data['questions']
         pred_op = []
         gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
