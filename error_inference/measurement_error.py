@@ -136,7 +136,7 @@ def main():
                         preds = [0]
                         qs = related_questions[i]['followup']
                         for follow_up in qs:
-                            pred2 = process_video(video, follow_up, model, processor).lower()
+                            pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
                             if 'yes' in pred2:
                                 preds.append(0)
                             else:
