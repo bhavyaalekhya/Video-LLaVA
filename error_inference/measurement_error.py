@@ -121,6 +121,7 @@ def main():
         video = os.path.join(video_dir, v)
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
+        print(name[0])
         related_questions = qs[name[0] + "_x"]["questions"]
         pred_op = []
         gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
