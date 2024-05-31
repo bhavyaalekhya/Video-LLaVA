@@ -144,7 +144,7 @@ def main():
                 else:
                     pred_op.append(1)
         
-        predicted.append(pred_op)
+            predicted.append(pred_op)
 
     predicted = flatten(predicted)
     g_truth = flatten(g_truth)
