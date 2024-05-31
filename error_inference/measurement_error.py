@@ -113,38 +113,37 @@ def main():
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='28_2_360p.mp4':
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            print(qs["28_x"])
-            related_questions = qs[name[0] + "_x"]["questions"]
-            pred_op = []
-            gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
-            g_truth.append(gt)
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        print(qs["28_x"])
+        related_questions = qs[name[0] + "_x"]["questions"]
+        pred_op = []
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
+        g_truth.append(gt)
 
-            # Iterate over the related questions with progress tracking using tqdm
-            for i in tqdm(range(len(related_questions)), desc=f"Processing questions for {v}", leave=False):
-                inp = related_questions[i]['q']
-                pred = process_video(video, inp, tokenizer, model, processor).lower()
-                if 'yes' in pred:
-                    if 'followup' in related_questions[i].keys():
-                        preds = [0]
-                        qs = related_questions[i]['followup']
-                        for follow_up in qs:
-                            pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
-                            if 'yes' in pred2:
-                                preds.append(0)
-                            else:
-                                preds.append(1)
-                        p = dis(preds)
-                        pred_op.append(p)
-                    else:
-                        pred_op.append(0)
+        # Iterate over the related questions with progress tracking using tqdm
+        for i in tqdm(range(len(related_questions)), desc=f"Processing questions for {v}", leave=False):
+            inp = related_questions[i]['q']
+            pred = process_video(video, inp, tokenizer, model, processor).lower()
+            if 'yes' in pred:
+                if 'followup' in related_questions[i].keys():
+                    preds = [0]
+                    qs = related_questions[i]['followup']
+                    for follow_up in qs:
+                        pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
+                        if 'yes' in pred2:
+                            preds.append(0)
+                        else:
+                            preds.append(1)
+                    p = dis(preds)
+                    pred_op.append(p)
                 else:
-                    pred_op.append(1)
-        
-            predicted.append(pred_op)
+                    pred_op.append(0)
+            else:
+                pred_op.append(1)
+    
+        predicted.append(pred_op)
 
     predicted = flatten(predicted)
     g_truth = flatten(g_truth)
