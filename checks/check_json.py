@@ -5,5 +5,7 @@ file = './error_prompts/measurement_error.json'
 with open(file, 'r') as f:
     qs = json.load(f)
 
-l = qs['28_x']['questions']
-print(len(l))
+name = ['28']
+related_key = name[0] + '_x'
+data = qs[related_key]
+related_questions = data['questions']
