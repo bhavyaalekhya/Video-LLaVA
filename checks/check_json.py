@@ -9,3 +9,4 @@ name = ['28']
 related_key = name[0] + '_x'
 data = qs[related_key]
 related_questions = data['questions']
+print(related_questions)
