@@ -128,7 +128,7 @@ def main():
             g_truth.append(gt)
 
             # Iterate over the related questions with progress tracking using tqdm
-            for i in tqdm(len(related_questions), desc=f"Processing questions for {v}", leave=False):
+            for i in tqdm(range(len(related_questions)), desc=f"Processing questions for {v}", leave=False):
                 inp = related_questions[i]['q']
                 pred = process_video(video, inp, tokenizer, model, processor).lower()
                 if 'yes' in pred:
