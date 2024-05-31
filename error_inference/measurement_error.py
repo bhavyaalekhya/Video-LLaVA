@@ -11,11 +11,6 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-wandb.init(
-    project="Task_Verification",
-    entity="vsbhavyaalekhya"
-)
-
 def load_model(model_path, device, cache_dir, load_4bit=True, load_8bit=False):
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, processor, _ = load_pretrained_model(model_path, None, model_name, load_8bit, load_4bit, device=device, cache_dir=cache_dir)
