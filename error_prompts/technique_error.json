@@ -370,13 +370,13 @@
     },
     "8_x": {
         "questions": [
-            "Does the person make a mistake heating the contents of the mug for 1 minute and serving?",
-            "Does the person make a mistake adding 1/5 teaspoon cinnamon to the mug?",
-            "Does the person make a mistake mixing the contents of the mug?",
-            "Does the person make a mistake adding 1 teaspoon of white sugar to the mug?",
-            "Does the person make a mistake filling a microwave-safe mug with skimmed milk?",
-            "Does the person make a mistake microwaving the contents of the mug for 1 minute?",
-            "Does the person make a mistake adding 2 pieces of chocolate to the mug?"
+            "Does the person make a mistake while heating the contents of the mug for 1 minute and serving?",
+            "Does the person make a mistake while adding 1/5 teaspoon cinnamon to the mug?",
+            "Does the person make a mistake while mixing the contents of the mug?",
+            "Does the person make a mistake while adding 1 teaspoon of white sugar to the mug?",
+            "Does the person make a mistake while filling a microwave-safe mug with skimmed milk?",
+            "Does the person make a mistake while microwaving the contents of the mug for 1 minute?",
+            "Does the person make a mistake while adding 2 pieces of chocolate to the mug?"
         ]
     },
     "28_x": {
