@@ -114,8 +114,7 @@ def main():
         gt_name = name[0] + '_' + name[1]
         related_key = name[0] + '_x'
         print(video)
-        print(type(related_key))
-        data = qs[related_key]
+        data = qs.get(related_key)
         related_questions = data['questions']
         pred_op = []
         gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
