@@ -113,7 +113,7 @@ def main():
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='28_2_360p':
+        if v=='28_2_360p.mp4':
             video = os.path.join(video_dir, v)
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
