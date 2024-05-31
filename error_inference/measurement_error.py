@@ -66,19 +66,15 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    gt = [1] * len(questions)
+    gt = [0] * len(questions)
 
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            if not step['has_errors']:
-                gt[index] = 0
+            if step['has_errors']:
+                gt[index] = 1
 
     return gt
-
-def data_file(data, filename):
-    df = pd.DataFrame(data)
-    df.to_csv(filename, sep=',', mode='a+')
 
 def dis(l):
     op = l[0]
