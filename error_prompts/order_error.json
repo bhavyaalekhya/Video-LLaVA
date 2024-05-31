@@ -1,0 +1,125 @@
+{
+    "21_x": {
+        "questions": [
+            {
+                "q": "Is the blender blitzed for 20 seconds?",
+                "followup": [
+                    "Does the person add 1/2 tsp baking powder to the blender?",
+                    "Does the person add 1 banana to the blender?",
+                    "Does the person add an egg to the blender?",
+                    "Is 1 heaped tbsp of flour added to the blender?"
+                ]
+            },
+            {
+                "q": "Did the person melt a small knob of butter in non-stick frying pan over low medium heat?",
+                "followup": [
+                    "Has the person blitzed the blender for 20 seconds?"
+                ]
+            },
+            {
+                "q": "Does the person pour three little puddles straight from blender into frying pan?",
+                "followup": [
+                    "Has the person melted butter in a non-stick frying pan over low medium heat?"
+                ]
+            },
+            {
+                "q": "Is the person cooking the batter for 1 min or until the top starts to bubble?",
+                "followup": [
+                    "Has the person poured three little puddles of batter from the blender into the frying pan?"
+                ]
+            },
+            {
+                "q": "Are the pancakes flipped with a fork or fish slice spatula?",
+                "followup": [
+                    "Is the batter cooked for 1 min or until the top starts to bubble?"
+                ]
+            },
+            {
+                "q": "Are the pancakes cooked for 20-30 seconds extra?",
+                "followup": [
+                    "Did the person flip the pancakes with a for or fish shaped spatula?"
+                ]
+            },
+            {
+                "q": "Are the pancakes transferred to a plate?",
+                "followup": [
+                    "Have the pancakes been cooked for 20-30 seconds more?"
+                ]
+            },
+            {
+                "q": "Are the pancakes served with chopped strawberries?",
+                "followup": [
+                    "Is a strawberry chopped?",
+                    "Are the pancakes transferred to a plate?"
+                ]
+            },
+            {
+                "q": "Is maple syrup splashed on the plate?",
+                "followup": [
+                    "Are the pancakes served with chopped strawberries?"
+                ]
+            }
+        ]
+    },
+    "7_x": {
+        "questions": [
+            {
+                "q": "Is the egg being whisked?",
+                "followup": [
+                    "Are the contents of an egg extracted and added to a microwave-safe bowl?"
+                ]
+            },
+            {
+                "q": "Is the mixture microwaved for 3 minutes while stirring in between?",
+                "followup": [
+                    "Has the egg been whisked?"
+                ]
+            },
+            {
+                "q": "Is 1/2 tbsp of sweet and sour sauce added to the bowl?",
+                "followup": [
+                    "Has the mixture been microwaved for 3 minutes while stirring in between?"
+                ]
+            },
+            {
+                "q": "Is 1 tbsp of salsa is added to the bowl?",
+                "followup": [
+                    "Has the mixture been microwaved for 3 minutes while stirring in between?"
+                ]
+            },
+            {
+                "q": "Does the person sprinkle oregano into the bowl?",
+                "followup": [
+                    "Has the mixture been microwaved for 3 minutes while stirring in between?"
+                ]
+            },
+            {
+                "q": "Are the contents of the bowl mixed well?",
+                "followup": [
+                    "Is 1/2 tbsp of sweet and sour sauce added to the bowl?",
+                    "Is 1 tbsp of salsa is added to the bowl?",
+                    "Does the person sprinkle oregano into the bowl?"
+                ]
+            },
+            {
+                "q": "Does the person pour the egg mixture on top of the tortilla?",
+                "followup": [
+                    "Are the contents of the bowl mixed well?",
+                    "Has an 8-inch tortilla been placed on the cutting board?"
+                ]
+            },
+            {
+                "q": "Does the person sprinkle 1 tbsp of shredded cheddar cheese on top of egg?",
+                "followup": [
+                    "Has the egg mixture been poured on top of the tortilla?"
+                ]
+            },
+            {
+                "q": "Is the tortilla rolled from one end to another into log shape about 1.5 inches thick, tight enough to prevent gaps but not so tight that the filling leaks?",
+                "followup": [
+                    "Has 1 tbsp shredded cheddar cheese been sprinkled on top of the egg?"
+                ]
+            }
+        ]
+    }
+}

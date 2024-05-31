@@ -1,0 +1,94 @@
+{
+    "21_x": {
+        "questions": [
+            {
+                "q": "Does adding baking powder require heating?"
+            },
+            {
+                "q": "Is the person using heat while serving the dish?"
+            },
+            {
+                "q": "To melt the butter, is heat required in the recipe?",
+                "followup": [
+                    "Is the butter melted on low-medium heat?"
+                ]
+            },
+            {
+                "q": "While splashing maple syrup on the plate, is temperature involved?"
+            },
+            {
+                "q": "To add banana to the blender, does the person warm it?"
+            },
+            {
+                "q": "Is the person cooking the pancakes?",
+                "followup": [
+                    "Is the person cooking for 1 min or until the top starts to bubble?"
+                ]
+            },
+            {
+                "q": "Does blitzing the blender require temperature control?"
+            },
+            {
+                "q": "While flipping the pancakes, does the person use any heating methods?"
+            },
+            {
+                "q": "Does adding egg to the blender require heating?"
+            },
+            {
+                "q": "While cooking for extra 20-30 seconds, does the person change the heat?"
+            },
+            {
+                "q": "Is there a modification in the heat being provided to the pan while batter is being poured into it?"
+            },
+            {
+                "q": "Does the person warm the flour before adding to the blender?"
+            },
+            {
+                "q": "While chopping the strawberry, is there any temperature control involved in the video?"
+            },
+            {
+                "q": "To transfer the dish to a plate, is the person heating the plate?"
+            }
+        ]
+    },
+    "7_x": {
+        "questions": [
+            {
+                "q": "Does whisking the egg use heat in the step?"
+            },
+            {
+                "q": "Is the person heating mixture in the step?",
+                "followup": [
+                    "Is the person microwaving the mixture for 3 minutes while stirring in between?"
+                ]
+            },
+            {
+                "q": "Does adding sweet and sour sauce involve heating?"
+            },
+            {
+                "q": "While sprinkling shredded cheese on top of egg, is the egg heated?"
+            },
+            {
+                "q": "While mixing the contents of the bowl, is it heated?"
+            },
+            {
+                "q": "Does the step extracting and adding contents of egg to a microwave-safe bowl involve heating?"
+            },
+            {
+                "q": "Is the tortilla being toasted before rolling it into log shape?"
+            },
+            {
+                "q": "Does the person heat the egg while pouring egg mixture on the tortilla?"
+            },
+            {
+                "q": "Is the person using any heat while adding salsa to the bowl?"
+            },
+            {
+                "q": "Does placing 8 inch tortilla on cutting board involve heating?"
+            },
+            {
+                "q": "Does sprinkling oregano in the bowl involve heating?"
+            }
+        ]
+    }
+}

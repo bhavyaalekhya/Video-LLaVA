@@ -1,0 +1,142 @@
+{
+    "21_x": {
+        "questions": [
+            {
+                "q": "What cooking tool is being used in the step? Answer from the options: (a. blender b. whisk c. food processor d. none).",
+                "correctans": "blender",
+                "followup": [
+                    "Does the person add baking powder to the blender?"
+                ]
+            },
+            {
+                "q": "Are the pancakes being served with the chopped strawberries?"
+            },
+            {
+                "q": "Which one of the following utensils are being used to melt small knob of butter? Select an answer from the options: a. wok b. toaster c. non-stick frying pan d. skillet",
+                "correctans": "non-stick frying pan",
+                "followup": [
+                    "Is butter added to the pan?"
+                ]
+            },
+            {
+                "q": "Is maple syrup being splashed on the plate?"
+            },
+            {
+                "q": "Which tool is being used in the step? Select from the following options: a. blender b. whisk c. food processor d. knife ",
+                "correctans": "blender",
+                "followup": [
+                    "Does the person add banana to the blender?"
+                ]
+            },
+            {
+                "q": "Is the person cooking for 1 min or until the top starts to bubble?"
+            },
+            {
+                "q": "What tool does the person use for blitzing? Select an answer from the options a. whisk b. fork c. blender d. masher",
+                "correctans": "blender"
+            },
+            {
+                "q": "What are the instruments being used to flip the pancakes? Select an answer from the following a. fork or fish slice spatula b. palette knife c. tongs d. chopsticks",
+                "correctans": "fork or fish slice spatula"
+            },
+            {
+                "q": "What mixing tool is used? Select an answer from the options a. whisk b. mixer c. blender",
+                "correctans": "blender",
+                "followup": [
+                    "Is an egg being added to the blender?"
+                ]
+            },
+            {
+                "q": "Are the pancakes being cooked for 20-30 seconds more?"
+            },
+            {
+                "q": "From what utensil is the batter being poured? Select one: a. bowl, b. blender c. spoon",
+                "correctans": "blender",
+                "followup": [
+                    "Is the batter being poured into a frying pan?"
+                ]
+            },
+            {
+                "q": "For mixing the batter, which tool is used in the video? Select one answer: a. whisk b. blender",
+                "correctans": "blender",
+                "followup": [
+                    "Is flour added to the blender?"
+                ]
+            },
+            {
+                "q": "Are strawberries chopped?"
+            },
+            {
+                "q": "To what plating dish is the item transferred to? Select one: a. bowl b. plate c. tray d. chopping board",
+                "correctans": "plate"
+            }
+        ]
+    },
+    "7_x": {
+        "questions": [
+            {
+                "q": "What tool is being used for the eggs? Select one for the following: a. whisk b. fork",
+                "correctans": "whisk",
+                "followup": [
+                    "Is an egg being whisked?"
+                ]
+            },
+            {
+                "q": "What is the object being used to heat? Answer from one of the options: a. pan b. microwave c. toaster",
+                "correctans": "microwave",
+                "followup": [
+                    "Is the mixture being stirred in between?"
+                ]
+            },
+            {
+                "q": "To what dish is the sauce being added to? Select a single answer from the following: a. plate b. bowl c. glass",
+                "correctans": "bowl",
+                "followup": [
+                    "Is sweet and sour sauce being added to the bowl?"
+                ]
+            },
+            {
+                "q": "Is cheddar cheese sprinkled on top of the egg?"
+            },
+            {
+                "q": "What dish are the contents being mixed in? Select one from the following a. bowl b. pot c. cup",
+                "correctans": "bowl"
+            },
+            {
+                "q": "What dish is being used to add contents of the egg? Select one: a. microwave-safe bowl b. steel bowl c. plastic bowl",
+                "correctans": "microwave-safe bowl",
+                "followup": [
+                    "Are the contents of an egg being added to the bowl?"
+                ]
+            },
+            {
+                "q": "Is a tortilla being rolled into a log shape that is about 1.5 inch thick?"
+            },
+            {
+                "q": "Is the egg being poured on top of a tortilla?"
+            },
+            {
+                "q": "Which dish in the following options is used for salsa? Select one: a. cup b. mug c. bowl",
+                "correctans": "bowl",
+                "followup": [
+                    "Is salsa being added to the bowl?"
+                ]
+            },
+            {
+                "q": "What is used to place the tortilla? Choose one: a. cutting board b. plate c. wire rack",
+                "correctans": "cutting board",
+                "followup": [
+                    "Is the tortilla being placed on the cutting board?",
+                    "Is a tortilla being used?"
+                ]
+            },
+            {
+                "q": "Where is the oregano being sprinkled? Choose one: a. bowl b. plate",
+                "correctans": "bowl",
+                "followup": [
+                    "Is oregano being sprinkled?"
+                ]
+            }
+        ]
+    }
+}
