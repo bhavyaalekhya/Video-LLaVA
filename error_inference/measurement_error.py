@@ -113,8 +113,6 @@ def main():
         name = v.split("_")
         gt_name = name[0] + '_' + name[1]
         related_key = name[0] + '_x'
-        print(f'-----------------> {related_key} <-----------------')
-        print(f'---------------> {type(related_key)} <---------------')
         data = qs[related_key]
         related_questions = data['questions']
         pred_op = []

@@ -5,4 +5,4 @@ file = './error_prompts/measurement_error.json'
 with open(file, 'r') as f:
     qs = json.load(f)
 
-print(type(qs))
+print(type(qs['28_x']))
