@@ -22,7 +22,7 @@
             {
                 "q": "Is the person cooking the pancakes?",
                 "followup": [
-                    "Is the person cooking for 1 min or until the top starts to bubble?"
+                    "Is the person cooking for 1 min or until the top starts to bubble? Answer in yes or no."
                 ]
             },
             {
