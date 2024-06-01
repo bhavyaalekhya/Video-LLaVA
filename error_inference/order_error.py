@@ -87,7 +87,7 @@ def ground_truth(name, video, normal_annot, questions):
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     gt = [0] * len(questions)
 
-    for i, question in enumerate(questions[normal]['questions']):
+    for i, question in enumerate(questions):
         for step in steps:
             if step['description'] in common_steps:
                 if not step['has_errors']:
