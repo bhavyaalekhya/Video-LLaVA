@@ -91,6 +91,12 @@ def ground_truth(name, video, normal_annot, questions):
 
     return gt
 
+def op_val(ans):
+    if 'yes' in ans:
+        return 0
+    else:
+        return 1
+
 def dis(l):
     op = l[0]
     for i in range(1, len(l)):
@@ -139,16 +145,15 @@ def main():
             for i in tqdm(range(len(related_questions)), desc=f"Processing questions for {v}", leave=False):
                 inp = related_questions[i]['q']
                 pred = process_video(video, inp, tokenizer, model, processor).lower()
+                print(pred)
                 if 'yes' in pred:
                     if 'followup' in related_questions[i].keys():
                         preds = [0]
                         qs = related_questions[i]['followup']
                         for follow_up in qs:
                             pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
-                            if 'yes' in pred2:
-                                preds.append(0)
-                            else:
-                                preds.append(1)
+                            print(pred2)
+                            preds.append(op_val(pred2))
                         p = dis(preds)
                         pred_op.append(p)
                     else:
