@@ -71,8 +71,23 @@ def ground_truth(name, video, normal_annot, questions):
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            if step['has_errors']:
-                gt[index] = 1
+            question = questions[index]
+            if 'followup' in question.keys():
+                if step['has_errors']:
+                    gt[index] = 1
+            else:
+                if step['has_errors']:
+                    gt[index] = 1
+
+    for i, question in enumerate(questions):
+        if 'followup' in question.keys():
+            if gt[i] == 1:
+                followup_gt = [0] * len(question['followup'])
+                for j, followup in enumerate(question['followup']):
+                    if followup in video_steps_desc:
+                        followup_gt[j] = 1
+                if 0 in followup_gt:
+                    gt[i] = 0
 
     return gt
 
@@ -152,8 +167,8 @@ def main():
         predicted = predicted
     )
 
-    with open(output_file, 'w') as file:
-        file.write(content) 
+    #with open(output_file, 'w') as file:
+    #    file.write(content) 
            
 if __name__ == '__main__':
     main()
