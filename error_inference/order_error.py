@@ -12,11 +12,6 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-wandb.init(
-    project="Task_Verification",
-    entity="vsbhavyaalekhya"
-)
-
 def load_model(model_path, device, cache_dir, load_4bit=True, load_8bit=False):
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, processor, _ = load_pretrained_model(model_path, None, model_name, load_8bit, load_4bit, device=device, cache_dir=cache_dir)
@@ -59,19 +54,6 @@ def process_video(video_path, question, tokenizer, model, processor):
 
 def flatten(l):
     return [label for sublist in l for label in sublist]
-
-def accuracy(pred_flat, gt_flat):
-    precision = precision_score(gt_flat, pred_flat)
-    recall = recall_score(gt_flat, pred_flat)
-    f1 = f1_score(gt_flat, pred_flat)
-    accuracy = accuracy_score(gt_flat, pred_flat)
-    
-    return {
-        'precision': precision,
-        'recall': recall,
-        'f1_score': f1,
-        'accuracy': accuracy
-    }
 
 def ground_truth(name, video, normal_annot, questions):
     gt = []
@@ -143,31 +125,29 @@ def main():
     predicted = []
     g_truth = []
 
-    wandb.watch(model, log="all")
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=="21_8_360p.mp4":
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            related_questions = qs[name[0] + "_x"]["questions"]
-            gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
-            g_truth.append(gt)
-            pred_op = [1] * len(gt)
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        related_questions = qs[name[0] + "_x"]["questions"]
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
+        g_truth.append(gt)
+        pred_op = [1] * len(gt)
 
-            question_ind = question_index(related_questions)
+        question_ind = question_index(related_questions)
 
-            # Iterate over the related questions with progress tracking using tqdm
-            for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
-                inp1 = steps['q']
-                pred = process_video(video, inp1, tokenizer, model, processor)
-                pred = pred.lower()
-                pred_op[question_ind[inp1]] = op_val(pred)
-                for qs in steps['followup']:
-                    inp2 = qs
-                    pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
-                    pred_op[question_ind[inp2]] = op_val(pred2)
-            
-            predicted.append(pred_op)
+        # Iterate over the related questions with progress tracking using tqdm
+        for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            inp1 = steps['q']
+            pred = process_video(video, inp1, tokenizer, model, processor)
+            pred = pred.lower()
+            pred_op[question_ind[inp1]] = op_val(pred)
+            for qs in steps['followup']:
+                inp2 = qs
+                pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
+                pred_op[question_ind[inp2]] = op_val(pred2)
+        
+        predicted.append(pred_op)
 
     # Validate that predicted and g_truth are lists of lists
     assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"
@@ -183,8 +163,8 @@ def main():
         predicted = predicted
     )
 
-    #with open('data_metrics.txt', 'w') as file:
-    #    file.write(content) 
+    with open('data_metrics.txt', 'w') as file:
+        file.write(content) 
            
 if __name__ == '__main__':
     main()
