@@ -173,8 +173,8 @@ def main():
         predicted = predicted
     )
 
-    with open('data_metrics.txt', 'w') as file:
-        file.write(content) 
+    #with open('data_metrics.txt', 'w') as file:
+    #    file.write(content) 
            
 if __name__ == '__main__':
     main()
