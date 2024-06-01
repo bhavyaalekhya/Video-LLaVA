@@ -117,7 +117,7 @@ def data_file(data, filename):
 def main():
     disable_torch_init()
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    questions_file = './error_prompts/temperature_error.json'
+    questions_file = './error_prompts/preparation_error.json'
     gt_file = './step_annotations.json'
     normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
