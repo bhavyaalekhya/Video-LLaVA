@@ -98,7 +98,7 @@ def question_index(related_questions):
     return question_to_index
 
 def op_val(ans):
-    if 'yes' in ans:
+    if 'yes' in ans or 'not' not in ans:
         return 0
     else:
         return 1
