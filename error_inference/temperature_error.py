@@ -79,7 +79,7 @@ def ground_truth(name, video, normal_annot, questions):
                 if not step['has_errors']:
                     if step['description'] in question['q']:
                         main_question_match = True
-                    if 'followup' in question:
+                    if 'followup' in question.keys():
                         for followup in question['followup']:
                             if step['description'] in followup:
                                 followup_question_match = True
