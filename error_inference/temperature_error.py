@@ -152,8 +152,8 @@ def main():
             print(pred)
             pred_op[question_ind[inp1]] = op_val(pred)
             if 'followup' in steps.keys():
-                for qs in steps['followup']:
-                    inp2 = qs
+                for question in steps['followup']:
+                    inp2 = question
                     pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
                     print(pred2)
                     pred_op[question_ind[inp2]] = op_val(pred2)
