@@ -141,15 +141,15 @@ def main():
         g_truth.append(gt)
 
         # Iterate over the related questions with progress tracking using tqdm
-        for i in tqdm(range(len(related_questions)), desc=f"Processing questions for {v}", leave=False):
-            inp = related_questions[i]['q']
+        for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            inp = steps['q']
             inp = inp + ' Answer with a yes or no.'
             pred = process_video(video, inp, tokenizer, model, processor).lower()
             print(pred)
             if 'yes' in pred:
-                if 'followup' in related_questions[i].keys():
+                if 'followup' in steps.keys():
                     preds = [0]
-                    qs = related_questions[i]['followup']
+                    qs = steps['followup']
                     for follow_up in qs:
                         follow_up += ' Answer with a yes or no.'
                         pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
