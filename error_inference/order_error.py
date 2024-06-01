@@ -87,6 +87,7 @@ def ground_truth(name, video, normal_annot, questions):
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     gt = [0] * len(questions)
 
+    
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
@@ -94,6 +95,14 @@ def ground_truth(name, video, normal_annot, questions):
                 gt[index] = 1
 
     return gt
+
+def question_index(related_questions):
+    question_to_index = {question['q']: i for i, question in enumerate(related_questions)}
+    for i, question in enumerate(related_questions):
+        for followup in question['followup']:
+            question_to_index[followup] = i
+
+    return question_to_index
 
 def op_val(ans):
     if 'yes' in ans:
@@ -138,20 +147,22 @@ def main():
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
             related_questions = qs[name[0] + "_x"]["questions"]
-            pred_op = []
             gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
             g_truth.append(gt)
+            pred_op = [1] * len(gt)
+
+            question_ind = question_index(related_questions)
 
             # Iterate over the related questions with progress tracking using tqdm
             for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
                 inp1 = steps['q']
                 pred = process_video(video, inp1, tokenizer, model, processor)
                 pred = pred.lower()
-                pred_op.append(op_val(pred))
+                pred_op[question_ind[inp1]] = op_val(pred)
                 for qs in steps['followup']:
                     inp2 = qs
                     pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
-                    pred_op.append(op_val(pred2))
+                    pred_op[question_ind[inp2]] = op_val(pred2)
             
             predicted.append(pred_op)
 
