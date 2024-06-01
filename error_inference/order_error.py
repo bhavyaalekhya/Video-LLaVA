@@ -85,14 +85,17 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    gt = [0] * len(questions)
+    gt = [0] * len(questions[normal]['questions'])
 
-    
-    for step in steps:
-        if step['description'] in common_steps:
-            index = common_steps.index(step['description'])
-            if not step['has_errors']:
-                gt[index] = 1
+    for i, question in enumerate(questions[normal]['questions']):
+        for step in steps:
+            if step['description'] in common_steps:
+                if not step['has_errors']:
+                    if step['description'] in question['q']:
+                        gt[i] = 1
+                    for followup in question['followup']:
+                        if step['description'] in followup:
+                            gt[i] = 1
 
     return gt
 
