@@ -1,10 +1,7 @@
-#To-Do: finding if there are temperature errors
-#To-Do: write code to find errors in order of steps in the recipes
 import torch
 import os
 import json
 from tqdm import tqdm
-import wandb
 import pandas as pd
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 from videollava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
@@ -90,11 +87,14 @@ def ground_truth(name, video, normal_annot, questions):
     return gt
 
 def question_index(related_questions):
-    question_to_index = {question['q']: i for i, question in enumerate(related_questions)}
-    for i, question in enumerate(related_questions):
-        for followup in question['followup']:
-            question_to_index[followup] = i
-
+    question_to_index = {}
+    index_counter = 0
+    for question in related_questions:
+        question_to_index[question['q']] = index_counter
+        if 'followup' in question.keys():
+            for followup in question['followup']:
+                question_to_index[followup] = index_counter
+        index_counter += 1
     return question_to_index
 
 def op_val(ans):
