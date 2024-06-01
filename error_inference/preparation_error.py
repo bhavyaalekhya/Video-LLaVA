@@ -169,7 +169,7 @@ def main():
                         inp2 = qs
                         pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
                         print(pred2)
-                        pred_op[question_ind[inp2]] = op_val(pred2)
+                        pred_op[question_ind[inp2]] = op_val(pred2, correctans, q_type)
             
             predicted.append(pred_op)
 
