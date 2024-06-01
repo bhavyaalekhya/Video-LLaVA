@@ -149,8 +149,8 @@ def main():
             if 'yes' in pred:
                 if 'followup' in steps.keys():
                     preds = [0]
-                    qs = steps['followup']
-                    for follow_up in qs:
+                    step = steps['followup']
+                    for follow_up in step:
                         follow_up += ' Answer with a yes or no.'
                         pred2 = process_video(video, follow_up, tokenizer, model, processor).lower()
                         print(pred2)
