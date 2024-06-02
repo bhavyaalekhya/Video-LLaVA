@@ -218,10 +218,7 @@
                 "q": "While thawing the frozen corn by putting it in a sieve and running it under cold water, is any heating involved?"
             },
             {
-                "q": "While adding 1 teaspoon of softened butter, is any heating required?",
-                "followup": [
-                    "Is the butter softened at room temperature or using low heat?"
-                ]
+                "q": "While adding 1 teaspoon of softened butter, is any heating required?"
             }
         ]
     },
