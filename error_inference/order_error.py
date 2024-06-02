@@ -142,8 +142,8 @@ def main():
             pred = process_video(video, inp1, tokenizer, model, processor)
             pred = pred.lower()
             all_pred2 = True
-            for qs in steps['followup']:
-                inp2 = qs
+            for q_s in steps['followup']:
+                inp2 = q_s
                 pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
                 pred_op[question_ind[inp2]] = op_val(pred2)
                 if op_val(pred2)!=0:
