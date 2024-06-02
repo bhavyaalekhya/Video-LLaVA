@@ -149,7 +149,7 @@ def main():
                 pred_op[question_ind[inp2]] = op_val(pred2)
                 if op_val(pred2)!=0:
                     all_pred2 = False
-            final_op = (0 and pred) if all_pred2 else (1 and pred)
+            final_op = (0 and op) if all_pred2 else (1 and op)
             pred_op[question_ind[inp1]] = final_op
         
         predicted.append(pred_op)
