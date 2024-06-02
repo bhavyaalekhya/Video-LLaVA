@@ -141,6 +141,7 @@ def main():
             inp1 = steps['q']
             pred = process_video(video, inp1, tokenizer, model, processor)
             pred = pred.lower()
+            op = op_val(pred)
             all_pred2 = True
             for q_s in steps['followup']:
                 inp2 = q_s
@@ -148,7 +149,8 @@ def main():
                 pred_op[question_ind[inp2]] = op_val(pred2)
                 if op_val(pred2)!=0:
                     all_pred2 = False
-            pred_op[question_ind[inp1]] = 0 if all_pred2 else 1
+            final_op = (0 and pred) if all_pred2 else (1 and pred)
+            pred_op[question_ind[inp1]] = final_op
         
         predicted.append(pred_op)
 
