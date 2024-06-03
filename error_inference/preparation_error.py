@@ -141,37 +141,36 @@ def main():
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='21_8_360p.mp4':
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            related_questions = qs[name[0] + "_x"]["questions"]
-            gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
-            g_truth.append(gt)
-            pred_op = [1] * len(gt)
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        related_questions = qs[name[0] + "_x"]["questions"]
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
+        g_truth.append(gt)
+        pred_op = [1] * len(gt)
 
-            question_ind = question_index(related_questions)
+        question_ind = question_index(related_questions)
 
-            # Iterate over the related questions with progress tracking using tqdm
-            for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
-                inp1 = steps['q']
-                if 'correctans' not in steps.keys():
-                    q_type = 'yes_no'
-                else:
-                    correctans = steps['correctans']
-                    q_type = 'option'
-                pred = process_video(video, inp1, tokenizer, model, processor)
-                pred = pred.lower()
-                print(pred)
-                pred_op[question_ind[inp1]] = op_val(pred, correctans, q_type)
-                if 'followup' in steps.keys():
-                    for qs in steps['followup']:
-                        inp2 = qs
-                        pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
-                        print(pred2)
-                        pred_op[question_ind[inp2]] = op_val(pred2, correctans, q_type)
-            
-            predicted.append(pred_op)
+        # Iterate over the related questions with progress tracking using tqdm
+        for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            inp1 = steps['q']
+            if 'correctans' not in steps.keys():
+                q_type = 'yes_no'
+            else:
+                correctans = steps['correctans']
+                q_type = 'option'
+            pred = process_video(video, inp1, tokenizer, model, processor)
+            pred = pred.lower()
+            print(pred)
+            pred_op[question_ind[inp1]] = op_val(pred, correctans, q_type)
+            if 'followup' in steps.keys():
+                for q in steps['followup']:
+                    inp2 = q
+                    pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
+                    print(pred2)
+                    pred_op[question_ind[inp2]] = op_val(pred2, correctans, q_type)
+        
+        predicted.append(pred_op)
 
     # Validate that predicted and g_truth are lists of lists
     assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"
