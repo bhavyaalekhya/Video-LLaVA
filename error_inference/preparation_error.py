@@ -123,7 +123,7 @@ def main():
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
-    output_file = './metrics.csv'
+    output_file = './preparation_error.txt'
     load_4bit, load_8bit = True, False
 
     tokenizer, model, processor = load_model(model_path, device, cache_dir, load_4bit, load_8bit)
@@ -187,8 +187,8 @@ def main():
         predicted = predicted
     )
 
-    #with open('data_metrics.txt', 'w') as file:
-    #    file.write(content) 
+    with open('data_metrics.txt', 'w') as file:
+        file.write(content) 
            
 if __name__ == '__main__':
     main()
