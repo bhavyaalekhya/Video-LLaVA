@@ -113,27 +113,26 @@ def main():
 
     wandb.watch(model, log="all")
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=="28_2_360p.mp4":
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            related_questions = qs[name[0] + "_x"]["questions"]
-            pred_op = []
-            gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
-            g_truth.append(gt)
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        related_questions = qs[name[0] + "_x"]["questions"]
+        pred_op = []
+        gt = ground_truth(name[0], gt_f[gt_name], n_annot, related_questions)
+        g_truth.append(gt)
 
-            # Iterate over the related questions with progress tracking using tqdm
-            for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
-                inp = q
-                pred = process_video(video, inp, tokenizer, model, processor)
-                print(pred)
-                pred = pred.lower()
-                if 'yes' in pred:
-                    pred_op.append(1)
-                else:
-                    pred_op.append(0)
-            
-            predicted.append(pred_op)
+        # Iterate over the related questions with progress tracking using tqdm
+        for q in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            inp = q
+            pred = process_video(video, inp, tokenizer, model, processor)
+            print(pred)
+            pred = pred.lower()
+            if 'yes' in pred:
+                pred_op.append(1)
+            else:
+                pred_op.append(0)
+        
+        predicted.append(pred_op)
 
     predicted = flatten(predicted)
     g_truth = flatten(g_truth)
