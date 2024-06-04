@@ -14,6 +14,8 @@ def gt(name, video, error_annot, normal_annot, questions, error_type):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
 
+    question_map = {q: i for i, q in enumerate(questions)}
+
     # Initialize gt with zeros for the length of common steps
     gt = [0] * len(common_steps)
 
@@ -30,10 +32,7 @@ def question_index(related_questions):
     question_to_index = {}
     index_counter = 0
     for question in related_questions:
-        question_to_index[question['q']] = index_counter
-        if 'followup' in question.keys():
-            for followup in question['followup']:
-                question_to_index[followup] = index_counter
+        question_to_index[question] = index_counter
         index_counter += 1
     return question_to_index
 
@@ -82,20 +81,12 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     m_file = './error_prompts/missing_error.json'
-    o_file = './error_prompts/order_error.json'
-    temp_file = './error_prompts/temperature_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
-    #print("Missing error type: ")
-    #error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
-
-    print("Order error type: ")
-    error_gt(video_dir, o_file, error_annot_file, normal_annot_file, steps, 'Order Error')
-
-    print("Temperature error type: ")
-    error_gt(video_dir, temp_file, error_annot_file, normal_annot_file, steps, 'Temperature Error')
+    print("Missing error type: ")
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
 
 if __name__ == "__main__":
     
