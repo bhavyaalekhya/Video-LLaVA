@@ -28,6 +28,39 @@ def gt(name, video, error_annot, normal_annot, questions, error_type):
 
     return gt
 
+def ground_truth(name, video, normal_annot, questions, error_type):
+    gt = []
+    steps = video['step_annotations']
+    normal = name + '_x'
+    n_steps = normal_annot[normal]['steps']
+    n_steps_desc = []
+
+    for step in n_steps:
+        n_steps_desc.append(step['description'])
+
+    video_steps_desc = [step['description'] for step in steps]
+    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
+    gt = [0] * len(questions)
+
+    for i, question in enumerate(questions):
+        main_question_match = False
+        followup_question_match = False
+
+        for step in steps:
+            if step['description'] in common_steps:
+                if 'errors' in step.keys() and step['errors']['tag']==error_type:
+                    if step['description'] in question['q']:
+                        main_question_match = True
+                    if 'followup' in question.keys():
+                        for followup in question['followup']:
+                            if step['description'] in followup:
+                                followup_question_match = True
+
+        if main_question_match or followup_question_match:
+            gt[i] = 1
+
+    return gt
+
 def question_index(related_questions):
     question_to_index = {}
     index_counter = 0
@@ -60,7 +93,7 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
         related_questions = qs[name[0] + "_x"]["questions"]
         for idx, entry in enumerate(gt_f):
             if entry['recording_id']==gt_name:
-                g_t = gt(name[0], step_annot[gt_name], gt_f[idx], n_annot, related_questions, error_type)
+                g_t = ground_truth(name[0], gt_f[idx], n_annot, related_questions, error_type)
                 g_truth.append(g_t)
 
         question_ind = question_index(related_questions)
@@ -80,13 +113,13 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/missing_error.json'
+    m_file = './error_prompts/order_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Missing error type: ")
-    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Order Error')
 
 if __name__ == "__main__":
     
