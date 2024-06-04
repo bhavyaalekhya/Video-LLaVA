@@ -77,26 +77,26 @@ def ground_truth(name, video, normal_annot, questions):
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     gt = [0] * json_len(questions)
 
-    for step in steps:
-        if step['description'] in common_steps:
-            index = common_steps.index(step['description'])
-            question = questions[index]
-            if 'followup' in question.keys():
-                if step['has_errors']:
-                    gt[index] = 1
-            else:
-                if step['has_errors']:
-                    gt[index] = 1
+    # for step in steps:
+    #     if step['description'] in common_steps:
+    #         index = common_steps.index(step['description'])
+    #         question = questions[index]
+    #         if 'followup' in question.keys():
+    #             if step['has_errors']:
+    #                 gt[index] = 1
+    #         else:
+    #             if step['has_errors']:
+    #                 gt[index] = 1
 
-    for i, question in enumerate(questions):
-        if 'followup' in question.keys():
-            if gt[i] == 1:
-                followup_gt = [0] * len(question['followup'])
-                for j, followup in enumerate(question['followup']):
-                    if followup in video_steps_desc:
-                        followup_gt[j] = 1
-                if 0 in followup_gt:
-                    gt[i] = 0
+    # for i, question in enumerate(questions):
+    #     if 'followup' in question.keys():
+    #         if gt[i] == 1:
+    #             followup_gt = [0] * len(question['followup'])
+    #             for j, followup in enumerate(question['followup']):
+    #                 if followup in video_steps_desc:
+    #                     followup_gt[j] = 1
+    #             if 0 in followup_gt:
+    #                 gt[i] = 0
 
     return gt
 
