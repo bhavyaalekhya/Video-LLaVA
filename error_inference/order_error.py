@@ -75,30 +75,33 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    gt = [0] * json_len(questions)
+    q = len(questions)
+    flattened_questions = []
+    for i, j in enumerate(questions):
+        flattened_questions.append(j['q'])
+        flattened_questions.extend(j['followup'])
+    
+    gt = [0] * len(flattened_questions)
 
-    # for step in steps:
-    #     if step['description'] in common_steps:
-    #         index = common_steps.index(step['description'])
-    #         question = questions[index]
-    #         if 'followup' in question.keys():
-    #             if step['has_errors']:
-    #                 gt[index] = 1
-    #         else:
-    #             if step['has_errors']:
-    #                 gt[index] = 1
+    for step in steps:
+        if step['description'] in common_steps:
+            index = common_steps.index(step['description'])
+            question = flattened_questions[index]
+            if step['has_errors'] and "Order Error" in step['errors']:
+                    gt[index] = 1
 
-    # for i, question in enumerate(questions):
-    #     if 'followup' in question.keys():
-    #         if gt[i] == 1:
-    #             followup_gt = [0] * len(question['followup'])
-    #             for j, followup in enumerate(question['followup']):
-    #                 if followup in video_steps_desc:
-    #                     followup_gt[j] = 1
-    #             if 0 in followup_gt:
-    #                 gt[i] = 0
+    current_index = q
+    for i, question in enumerate(questions):
+        if 'followup' in question.keys():
+            followup_gt = [0] * len(question['followup'])
+            for j, followup in enumerate(question['followup']):
+                if followup in video_steps_desc:
+                    followup_gt[j] = 1
+            gt[current_index:current_index + len(question['followup'])] = followup_gt
+            current_index += len(question['followup'])
 
     return gt
+
 
 def question_index(related_questions):
     question_to_index = {question['q']: i for i, question in enumerate(related_questions)}

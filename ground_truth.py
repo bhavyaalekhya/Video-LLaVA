@@ -41,15 +41,31 @@ def ground_truth(name, video, normal_annot, questions):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     q = len(questions)
+    flattened_questions = []
+    for i, j in enumerate(questions):
+        flattened_questions.append(j['q'])
+        flattened_questions.extend(j['followup'])
     
-    gt = [0] * q
+    print("total length: ",(len(flattened_questions)==len(common_steps)))
+    
+    gt = [0] * len(flattened_questions)
 
     for step in steps:
         if step['description'] in common_steps:
-            index = n_steps_desc.index(step['description'])
-            if index < q:
-                if step['has_errors'] and "Preparation Error" in step['errors']:
+            index = common_steps.index(step['description'])
+            question = flattened_questions[index]
+            if step['has_errors'] and "Order Error" in step['errors']:
                     gt[index] = 1
+
+    current_index = q
+    for i, question in enumerate(questions):
+        if 'followup' in question.keys():
+            followup_gt = [0] * len(question['followup'])
+            for j, followup in enumerate(question['followup']):
+                if followup in video_steps_desc:
+                    followup_gt[j] = 1
+            gt[current_index:current_index + len(question['followup'])] = followup_gt
+            current_index += len(question['followup'])
 
     return gt
 
@@ -99,7 +115,7 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/preparation_error.json'
+    m_file = './error_prompts/order_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
