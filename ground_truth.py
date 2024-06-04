@@ -43,7 +43,8 @@ def ground_truth(name, video, normal_annot, questions, error_type):
     gt = [0] * len(questions)
 
     for i, question in enumerate(questions):
-        question_match = False
+        main_question_match = False
+        followup_question_match = False
 
         for idx, step in enumerate(steps):
             #print(step)
@@ -54,9 +55,15 @@ def ground_truth(name, video, normal_annot, questions, error_type):
                 if 'errors' in step.keys():
                     for error in step['errors']:
                         if error['tag']==error_type:
-                            question_match=True
+                            if step['description'] in question['q']:
+                                print(True)
+                                main_question_match = True
+                            if 'followup' in question.keys():
+                                for followup in question['followup']:
+                                    if step['description'] in followup:
+                                        followup_question_match = True
 
-        if question_match:
+        if main_question_match or followup_question_match:
             gt[i] = 1
 
     return gt
@@ -87,7 +94,7 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='1_28_360p.mp4':
+        if v=='1_36_360p.mp4':
             video = os.path.join(video_dir, v)
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
@@ -112,13 +119,13 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/preparation_error.json'
+    m_file = './error_prompts/order_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Missing error type: ")
-    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Preparation Error')
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Order Error')
 
 if __name__ == "__main__":
     
