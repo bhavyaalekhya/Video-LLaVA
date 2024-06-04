@@ -54,11 +54,7 @@ def ground_truth(name, video, normal_annot, questions):
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
             question = flattened_questions[index]
-            if 'followup' in question.keys():
-                if step['has_errors'] and "Order Error" in step['errors']:
-                    gt[index] = 1
-            else:
-                if step['has_errors']:
+            if step['has_errors'] and "Order Error" in step['errors']:
                     gt[index] = 1
 
     current_index = q
