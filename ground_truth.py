@@ -48,6 +48,8 @@ def ground_truth(name, video, normal_annot, questions, error_type):
 
         for idx, step in enumerate(steps):
             #print(step)
+            print(steps)
+            print(question['q'])
             if step['description'] in common_steps:
                 if 'errors' in step.keys():
                     for error in step['errors']:
@@ -90,14 +92,15 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        video = os.path.join(video_dir, v)
-        name = v.split("_")
-        gt_name = name[0] + '_' + name[1]
-        related_questions = qs[name[0] + "_x"]["questions"]
-        for idx, entry in enumerate(gt_f):
-            if entry['recording_id']==gt_name:
-                g_t = ground_truth(name[0], gt_f[idx], n_annot, related_questions, error_type)
-                g_truth.append(g_t)
+        if v=='1_28_360p.mp4':
+            video = os.path.join(video_dir, v)
+            name = v.split("_")
+            gt_name = name[0] + '_' + name[1]
+            related_questions = qs[name[0] + "_x"]["questions"]
+            for idx, entry in enumerate(gt_f):
+                if entry['recording_id']==gt_name:
+                    g_t = ground_truth(name[0], gt_f[idx], n_annot, related_questions, error_type)
+                    g_truth.append(g_t)
 
     g_truth = flatten(g_truth)
     print(f'{error_type} ground_truth: ', g_truth)
