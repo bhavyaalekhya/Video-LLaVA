@@ -48,12 +48,6 @@ def open_file(filename):
         contents = json.load(file)
 
 def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    questions_file = './error_prompts/preparation_error.json'
-    error_annot_file = './error_annotations.json'
-    normal_annot_file = './normal_videos.json'
-    steps = './step_annotations.json'
-
     qs = open_file(q_file)
     gt_f = open_file(error_annot)
     n_annot = open_file(normal_annot)
