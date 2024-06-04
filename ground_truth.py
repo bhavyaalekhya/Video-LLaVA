@@ -46,6 +46,8 @@ def flatten(l):
 def open_file(filename):
     with open(filename, 'r') as file:
         contents = json.load(file)
+    
+    return contents
 
 def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
     qs = open_file(q_file)
