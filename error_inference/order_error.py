@@ -55,6 +55,13 @@ def process_video(video_path, question, tokenizer, model, processor):
 def flatten(l):
     return [label for sublist in l for label in sublist]
 
+def json_len(f):
+    q = len(f)
+    for i, j in f.items():
+        q += len(i['followup'])
+
+    return q
+
 def ground_truth(name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
@@ -67,17 +74,28 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    gt = [0] * len(questions)
+    gt = [0] * json_len(questions)
+
+    for step in steps:
+        if step['description'] in common_steps:
+            index = common_steps.index(step['description'])
+            question = questions[index]
+            if 'followup' in question.keys():
+                if step['has_errors']:
+                    gt[index] = 1
+            else:
+                if step['has_errors']:
+                    gt[index] = 1
 
     for i, question in enumerate(questions):
-        for step in steps:
-            if step['description'] in common_steps:
-                if not step['has_errors']:
-                    if step['description'] in question['q']:
-                        gt[i] = 1
-                    for followup in question['followup']:
-                        if step['description'] in followup:
-                            gt[i] = 1
+        if 'followup' in question.keys():
+            if gt[i] == 1:
+                followup_gt = [0] * len(question['followup'])
+                for j, followup in enumerate(question['followup']):
+                    if followup in video_steps_desc:
+                        followup_gt[j] = 1
+                if 0 in followup_gt:
+                    gt[i] = 0
 
     return gt
 
