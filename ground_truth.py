@@ -50,8 +50,8 @@ def ground_truth(name, video, normal_annot, questions, error_type):
             #print(step)
             
             if step['description'] in common_steps:
-                print(step['description'])
-                print(question['q'])
+                #print(step['description'])
+                #print(question['q'])
                 if 'errors' in step.keys():
                     for error in step['errors']:
                         if error['tag']==error_type:
