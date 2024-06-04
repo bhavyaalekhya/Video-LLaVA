@@ -22,10 +22,11 @@ def gt(name, video, error_annot, normal_annot, questions):
 
     for step in error_steps:
         if step['description'] in common_steps:
-            for error in step.get('errors', []):
-                if error['tag'] == "Preparation Error":
-                    index = common_steps.index(step['description'])
-                    gt[index] = 1
+            if step['is_error']:
+                for error in step.get('errors', []):
+                    if error['tag'] == "Preparation Error":
+                        index = common_steps.index(step['description'])
+                        gt[index] = 1
 
     return gt
 
@@ -57,7 +58,7 @@ def main():
         qs = json.load(f)
 
     with open(error_annot_file, 'r') as file:
-        gt_f = json.load(file)[0]
+        gt_f = json.load(file)
 
     with open(normal_annot_file, 'r') as f:
         n_annot = json.load(f)
@@ -70,9 +71,10 @@ def main():
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
             related_questions = qs[name[0] + "_x"]["questions"]
-            if gt_f['recording_id']=='1_28':
-                g_t = gt(name[0], gt_f['recording_id'], gt_f['recording_id'], n_annot, related_questions)
-                g_truth.append(g_t)
+            for idx, entry in enumerate(gt_f):
+                if entry['recording_id']=='1_28':
+                    g_t = gt(name[0], gt_f[idx], gt_f[idx], n_annot, related_questions)
+                    g_truth.append(g_t)
 
             question_ind = question_index(related_questions)
 
