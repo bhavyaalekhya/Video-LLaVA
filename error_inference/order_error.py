@@ -56,10 +56,10 @@ def flatten(l):
     return [label for sublist in l for label in sublist]
 
 def json_len(f):
-    print(f)
+    #print(f)
     q = len(f)
     for i, j in enumerate(f):
-        q += len(i['followup'])
+        q += len(j['followup'])
 
     return q
 
