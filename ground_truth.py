@@ -41,17 +41,19 @@ def ground_truth(name, video, normal_annot, questions):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     q = len(questions)
-    followup = [len(j['followup']) for i, j in enumerate(questions)]
-    total_length = q + sum(followup)
-
-    print("total length: ",(total_length==len(common_steps)))
+    flattened_questions = []
+    for i, j in enumerate(questions):
+        flattened_questions.append(j['q'])
+        flattened_questions.extend(j['followup'])
     
-    gt = [0] * total_length
+    print("total length: ",(len(flattened_questions)==len(common_steps)))
+    
+    gt = [0] * len(flattened_questions)
 
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            question = questions[index]
+            question = flattened_questions[index]
             if 'followup' in question.keys():
                 if step['has_errors'] and "Order Error" in step['errors']:
                     gt[index] = 1
