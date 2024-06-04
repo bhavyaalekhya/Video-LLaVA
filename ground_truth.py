@@ -22,11 +22,10 @@ def gt(name, video, error_annot, normal_annot, questions):
 
     for step in error_steps:
         if step['description'] in common_steps:
-            if step['is_error']:
-                for error in step.get('errors', []):
-                    if error['tag'] == "Preparation Error":
-                        index = common_steps.index(step['description'])
-                        gt[index] = 1
+            for error in step.get('errors', []):
+                if error['tag'] == "Preparation Error":
+                    index = common_steps.index(step['description'])
+                    gt[index] = 1
 
     return gt
 
