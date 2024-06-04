@@ -57,7 +57,7 @@ def flatten(l):
 
 def json_len(f):
     q = len(f)
-    for i, j in f.items():
+    for i, j in enumerate(f):
         q += len(i['followup'])
 
     return q
