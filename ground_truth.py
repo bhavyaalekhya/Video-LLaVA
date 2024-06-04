@@ -57,7 +57,7 @@ def main():
         qs = json.load(f)
 
     with open(error_annot_file, 'r') as file:
-        gt_f = json.load(file)
+        gt_f = json.load(file)[0]
 
     with open(normal_annot_file, 'r') as f:
         n_annot = json.load(f)
@@ -69,7 +69,6 @@ def main():
             video = os.path.join(video_dir, v)
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
-            print(gt_f)
             related_questions = qs[name[0] + "_x"]["questions"]
             g_t = gt(name[0], gt_f[gt_name], gt_f[gt_name], n_annot, related_questions)
             g_truth.append(g_t)
