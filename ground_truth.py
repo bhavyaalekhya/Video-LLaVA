@@ -40,32 +40,14 @@ def ground_truth(name, video, normal_annot, questions):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    q = len(questions)
-    flattened_questions = []
-    for i, j in enumerate(questions):
-        flattened_questions.append(j['q'])
-        flattened_questions.extend(j['followup'])
     
-    print("total length: ",(len(flattened_questions)==len(common_steps)))
-    
-    gt = [0] * len(flattened_questions)
+    gt = [0] * len(questions)
 
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            question = flattened_questions[index]
-            if step['has_errors'] and "Order Error" in step['errors']:
-                    gt[index] = 1
-
-    current_index = q
-    for i, question in enumerate(questions):
-        if 'followup' in question.keys():
-            followup_gt = [0] * len(question['followup'])
-            for j, followup in enumerate(question['followup']):
-                if followup in video_steps_desc:
-                    followup_gt[j] = 1
-            gt[current_index:current_index + len(question['followup'])] = followup_gt
-            current_index += len(question['followup'])
+            if step['has_errors'] and "Missing Error" in step['errors']:
+                gt[index] = 1
 
     return gt
 
@@ -115,12 +97,12 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/order_error.json'
+    m_file = './error_prompts/missing_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Preparation error type: ")
-    error_gt(video_dir, m_file, normal_annot_file, steps, 'Preparation Error')
+    error_gt(video_dir, m_file, normal_annot_file, steps, 'Missing Error')
 
 if __name__ == "__main__":
     main()
