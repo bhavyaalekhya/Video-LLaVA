@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-def gt(name, video, error_annot, normal_annot, questions):
+def gt(name, video, error_annot, normal_annot, questions, error_type):
     gt = []
     steps = video['steps']
     error_steps = error_annot['step_annotations']
@@ -23,7 +23,7 @@ def gt(name, video, error_annot, normal_annot, questions):
     for step in error_steps:
         if step['description'] in common_steps:
             for error in step.get('errors', []):
-                if error['tag'] == "Preparation Error":
+                if error['tag'] == error_type:
                     index = common_steps.index(step['description'])
                     gt[index] = 1
 
@@ -43,46 +43,75 @@ def question_index(related_questions):
 def flatten(l):
     return [label for sublist in l for label in sublist]
 
-def data_file(data, filename):
-    df = pd.DataFrame(data)
-    df.to_csv(filename, sep=',', mode='a+')
+def open_file(filename):
+    with open(filename, 'r') as file:
+        contents = json.load(file)
 
-def main():
+def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     questions_file = './error_prompts/preparation_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
-    with open(questions_file, 'r') as f:
-        qs = json.load(f)
-
-    with open(error_annot_file, 'r') as file:
-        gt_f = json.load(file)
-
-    with open(normal_annot_file, 'r') as f:
-        n_annot = json.load(f)
-
-    with open(steps, 'r') as file:
-        step_annot = json.load(file)
+    qs = open_file(q_file)
+    gt_f = open_file(error_annot)
+    n_annot = open_file(normal_annot)
+    step_annot = open_file(steps)
     
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='1_28_360p.mp4':
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            related_questions = qs[name[0] + "_x"]["questions"]
-            for idx, entry in enumerate(gt_f):
-                if entry['recording_id']=='1_28':
-                    g_t = gt(name[0], step_annot['1_28'], gt_f[idx], n_annot, related_questions)
-                    g_truth.append(g_t)
+        video = os.path.join(video_dir, v)
+        name = v.split("_")
+        gt_name = name[0] + '_' + name[1]
+        related_questions = qs[name[0] + "_x"]["questions"]
+        for idx, entry in enumerate(gt_f):
+            if entry['recording_id']==gt_name:
+                g_t = gt(name[0], step_annot[gt_name], gt_f[idx], n_annot, related_questions, error_type)
+                g_truth.append(g_t)
 
-            question_ind = question_index(related_questions)
+        question_ind = question_index(related_questions)
 
     g_truth = flatten(g_truth)
-    print('ground_truth: ', g_truth)
+    print(f'{error_type} ground_truth: ', g_truth)
+
+    output_name = "_".join(error_type.lower().split(" "))
+
+    output_name = './' + output_name + '.txt'
+
+    content = f'Ground Truth: {g_truth}'
+
+    with open(output_name, 'w') as file:
+        file.write(content)
+
+
+def main():
+    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
+    p_file = './error_prompts/preparation_error.json'
+    me_file = './error_prompts/measurement_error.json'
+    m_file = './error_prompts/missing_error.json'
+    o_file = './error_prompts/order_error.json'
+    temp_file = './error_prompts/temperature_error.json'
+    error_annot_file = './error_annotations.json'
+    normal_annot_file = './normal_videos.json'
+    steps = './step_annotations.json'
+
+    print("Preparation error type: ")
+    error_gt(video_dir, p_file, error_annot_file, normal_annot_file, steps, 'Preparation Error')
+
+    print("Measurement error type: ")
+    error_gt(video_dir, me_file, error_annot_file, normal_annot_file, steps, 'Measurement Error')
+
+    print("Missing error type: ")
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
+
+    print("Order error type: ")
+    error_gt(video_dir, o_file, error_annot_file, normal_annot_file, steps, 'Order Error')
+
+    print("Temperature error type: ")
+    error_gt(video_dir, temp_file, error_annot_file, normal_annot_file, steps, 'Temperature Error')
 
 if __name__ == "__main__":
+    
     main()
