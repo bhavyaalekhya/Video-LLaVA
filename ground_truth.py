@@ -43,6 +43,8 @@ def ground_truth(name, video, normal_annot, questions):
     q = len(questions)
     followup = [len(j['followup']) for i, j in enumerate(questions)]
     total_length = q + sum(followup)
+
+    print("total length: ",(total_length==len(n_steps)))
     
     gt = [0] * total_length
 
