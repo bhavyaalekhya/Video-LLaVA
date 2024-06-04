@@ -44,25 +44,12 @@ def ground_truth(name, video, normal_annot, questions):
     
     gt = [0] * q
 
-    #print(common_steps)
-    #print(steps)
     for step in steps:
         if step['description'] in common_steps:
-            index = common_steps.index(step['description'])
-            print(index)
-            question = questions[index]
-            if step['has_errors'] and "Preparation Error" in step['errors']:
+            index = n_steps_desc.index(step['description'])
+            if index < q:
+                if step['has_errors'] and "Preparation Error" in step['errors']:
                     gt[index] = 1
-
-    current_index = q
-    for i, question in enumerate(questions):
-        if 'followup' in question.keys():
-            followup_gt = [0] * len(question['followup'])
-            for j, followup in enumerate(question['followup']):
-                if followup in video_steps_desc:
-                    followup_gt[j] = 1
-            gt[current_index:current_index + len(question['followup'])] = followup_gt
-            current_index += len(question['followup'])
 
     return gt
 
