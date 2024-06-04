@@ -46,7 +46,7 @@ def ground_truth(name, video, normal_annot, questions):
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            if step['has_errors'] and "Missing Error" in step['errors']:
+            if step['has_errors'] and "Missing Step" in step['errors']:
                 gt[index] = 1
 
     return gt
