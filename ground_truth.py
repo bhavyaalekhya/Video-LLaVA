@@ -17,9 +17,6 @@ def gt(name, video, error_annot, normal_annot, questions, error_type):
     # Initialize gt with zeros for the length of common steps
     gt = [0] * len(common_steps)
 
-    # Mapping question descriptions to their indices
-    question_map = {q['q']: i for i, q in enumerate(questions)}
-
     for step in error_steps:
         if step['description'] in common_steps:
             for error in step.get('errors', []):
@@ -84,11 +81,16 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
+    m_file = './error_prompts/missing_error.json'
     o_file = './error_prompts/order_error.json'
     temp_file = './error_prompts/temperature_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
+
+    print("Missing error type: ")
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
+
     print("Order error type: ")
     error_gt(video_dir, o_file, error_annot_file, normal_annot_file, steps, 'Order Error')
 
