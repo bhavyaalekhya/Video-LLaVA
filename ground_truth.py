@@ -28,9 +28,9 @@ def gt(name, video, error_annot, normal_annot, questions, error_type):
 
     return gt
 
-def ground_truth(name, video, normal_annot, questions, error_type):
+def ground_truth(name, video, normal_annot, questions):
     gt = []
-    steps = video['step_annotations']
+    steps = video['steps']
     normal = name + '_x'
     n_steps = normal_annot[normal]['steps']
     n_steps_desc = []
@@ -40,31 +40,31 @@ def ground_truth(name, video, normal_annot, questions, error_type):
 
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    gt = [0] * len(questions)
+    q = len(questions)
+    total_length = q + sum(len(q['followup']) for q in questions)
+    
+    gt = [0] * total_length
 
+    for step in steps:
+        if step['description'] in common_steps:
+            index = common_steps.index(step['description'])
+            question = questions[index]
+            if 'followup' in question.keys():
+                if step['has_errors'] and "Order Error" in step['errors']:
+                    gt[index] = 1
+            else:
+                if step['has_errors']:
+                    gt[index] = 1
+
+    current_index = q
     for i, question in enumerate(questions):
-        main_question_match = False
-        followup_question_match = False
-
-        for idx, step in enumerate(steps):
-            #print(step)
-            
-            if step['description'] in common_steps:
-                #print(step['description'])
-                #print(question['q'])
-                if 'errors' in step.keys():
-                    for error in step['errors']:
-                        if error['tag']==error_type:
-                            if step['description'] in question['q']:
-                                print(True)
-                                main_question_match = True
-                            if 'followup' in question.keys():
-                                for followup in question['followup']:
-                                    if step['description'] in followup:
-                                        followup_question_match = True
-
-        if main_question_match or followup_question_match:
-            gt[i] = 1
+        if 'followup' in question.keys():
+            followup_gt = [0] * len(question['followup'])
+            for j, followup in enumerate(question['followup']):
+                if followup in video_steps_desc:
+                    followup_gt[j] = 1
+            gt[current_index:current_index + len(question['followup'])] = followup_gt
+            current_index += len(question['followup'])
 
     return gt
 
@@ -85,24 +85,19 @@ def open_file(filename):
     
     return contents
 
-def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
+def error_gt(video_dir, q_file, normal_annot, steps, error_type):
     qs = open_file(q_file)
-    gt_f = open_file(error_annot)
     n_annot = open_file(normal_annot)
     step_annot = open_file(steps)
     
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        if v=='1_36_360p.mp4':
-            video = os.path.join(video_dir, v)
-            name = v.split("_")
-            gt_name = name[0] + '_' + name[1]
-            related_questions = qs[name[0] + "_x"]["questions"]
-            for idx, entry in enumerate(gt_f):
-                if entry['recording_id']==gt_name:
-                    g_t = ground_truth(name[0], gt_f[idx], n_annot, related_questions, error_type)
-                    g_truth.append(g_t)
+        name = v.split('_')
+        gt_name = name[0] + '_' + name[1]
+        g = []
+        g = ground_truth(name[0], steps[gt_name], n_annot, qs[name[0]+'_x'])
+        pass
 
     g_truth = flatten(g_truth)
     print(f'{error_type} ground_truth: ', g_truth)
@@ -120,13 +115,11 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
     m_file = './error_prompts/order_error.json'
-    error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
-    print("Missing error type: ")
-    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Order Error')
+    print("Order error type: ")
+    error_gt(video_dir, m_file, normal_annot_file, steps, 'Order Error')
 
 if __name__ == "__main__":
-    
     main()
