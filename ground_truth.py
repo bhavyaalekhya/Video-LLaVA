@@ -41,6 +41,7 @@ def ground_truth(name, video, normal_annot, questions):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     q = len(questions)
+    print(questions)
     followup = [len(j['followup']) for i, j in enumerate(questions)]
     total_length = q + sum(followup)
 
