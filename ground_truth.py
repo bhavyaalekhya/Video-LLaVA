@@ -47,6 +47,7 @@ def ground_truth(name, video, normal_annot, questions, error_type):
         followup_question_match = False
 
         for idx, step in enumerate(steps):
+            print(step)
             if step['description'] in common_steps:
                 if 'errors' in step.keys() and step['errors']['tag']==error_type:
                     if step['description'] in question['q']:
