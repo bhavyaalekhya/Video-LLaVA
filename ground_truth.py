@@ -47,7 +47,7 @@ def ground_truth(name, video, normal_annot, questions, error_type):
         followup_question_match = False
 
         for idx, step in enumerate(steps):
-            print(step)
+            #print(step)
             if step['description'] in common_steps:
                 if 'errors' in step.keys():
                     for error in step['errors']:
@@ -98,8 +98,6 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
             if entry['recording_id']==gt_name:
                 g_t = ground_truth(name[0], gt_f[idx], n_annot, related_questions, error_type)
                 g_truth.append(g_t)
-
-        question_ind = question_index(related_questions)
 
     g_truth = flatten(g_truth)
     print(f'{error_type} ground_truth: ', g_truth)
