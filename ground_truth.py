@@ -53,6 +53,7 @@ def main():
     questions_file = './error_prompts/preparation_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
+    steps = './step_annotations.json'
 
     with open(questions_file, 'r') as f:
         qs = json.load(f)
@@ -62,6 +63,9 @@ def main():
 
     with open(normal_annot_file, 'r') as f:
         n_annot = json.load(f)
+
+    with open(steps, 'r') as file:
+        step_annot = json.load(file)
     
     g_truth = []
 
@@ -73,7 +77,7 @@ def main():
             related_questions = qs[name[0] + "_x"]["questions"]
             for idx, entry in enumerate(gt_f):
                 if entry['recording_id']=='1_28':
-                    g_t = gt(name[0], gt_f[idx], gt_f[idx], n_annot, related_questions)
+                    g_t = gt(name[0], step_annot['1_28'], gt_f[idx], n_annot, related_questions)
                     g_truth.append(g_t)
 
             question_ind = question_index(related_questions)
