@@ -70,9 +70,8 @@ def main():
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
             related_questions = qs[name[0] + "_x"]["questions"]
-            gt = gt(name[0], gt_f[gt_name], gt_f[gt_name], n_annot, related_questions)
-            g_truth.append(gt)
-            pred_op = [1] * len(gt)
+            g_t = gt(name[0], gt_f[gt_name], gt_f[gt_name], n_annot, related_questions)
+            g_truth.append(g_t)
 
             question_ind = question_index(related_questions)
 
