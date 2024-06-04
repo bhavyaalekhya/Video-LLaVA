@@ -95,8 +95,8 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
         name = v.split('_')
         gt_name = name[0] + '_' + name[1]
-        g = []
         g = ground_truth(name[0], steps[gt_name], n_annot, qs[name[0]+'_x'])
+        g_truth.append(g)
         pass
 
     g_truth = flatten(g_truth)
