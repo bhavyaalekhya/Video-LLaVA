@@ -46,7 +46,7 @@ def ground_truth(name, video, normal_annot, questions):
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            if step['has_errors'] and "Missing Step" in step['errors']:
+            if step['has_errors'] and "Measurement Error" in step['errors']:
                 gt[index] = 1
 
     return gt
@@ -97,12 +97,12 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/missing_error.json'
+    m_file = './error_prompts/measurement_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Preparation error type: ")
-    error_gt(video_dir, m_file, normal_annot_file, steps, 'Missing Error')
+    error_gt(video_dir, m_file, normal_annot_file, steps, 'Measurement Error')
 
 if __name__ == "__main__":
     main()
