@@ -110,7 +110,10 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 11,
@@ -541,21 +544,30 @@
                 "start_time": 4.121,
                 "end_time": 40.381,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 3,
                 "start_time": 43.843,
                 "end_time": 72.451,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 73.216,
                 "end_time": 103.816,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 11,
@@ -569,14 +581,20 @@
                 "start_time": 154.981,
                 "end_time": 229.358,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 190.015,
                 "end_time": 260.8,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
@@ -597,7 +615,10 @@
                 "start_time": 330.193,
                 "end_time": 400.79,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -618,7 +639,10 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -630,7 +654,10 @@
                 "start_time": 3.207,
                 "end_time": 45.265,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 12,
@@ -644,7 +671,10 @@
                 "start_time": 96.884,
                 "end_time": 122.465,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 9,
@@ -665,21 +695,30 @@
                 "start_time": 197.12,
                 "end_time": 252.806,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
                 "start_time": 253.504,
                 "end_time": 314.825,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 315.32,
                 "end_time": 444.966,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -693,21 +732,30 @@
                 "start_time": 453.8,
                 "end_time": 460.279,
                 "description": "replace -replace the top of the English muffin",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 3,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 8,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -719,28 +767,41 @@
                 "start_time": 4.168,
                 "end_time": 40.975,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 44.615,
                 "end_time": 72.013,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 79.47800000000001,
                 "end_time": 111,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": 98.863,
                 "end_time": 127.186,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 8,
@@ -754,7 +815,10 @@
                 "start_time": 174.167,
                 "end_time": 218.198,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
@@ -782,7 +846,10 @@
                 "start_time": 328.9127055246496,
                 "end_time": 350.664,
                 "description": "Place -Place the egg from the cup over the lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 7,
@@ -796,7 +863,10 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -808,21 +878,32 @@
                 "start_time": 8.595,
                 "end_time": 70.494,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 79.569,
                 "end_time": 255.707,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error",
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 278.5853726157889,
                 "end_time": 337.069,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error",
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 4,
@@ -878,7 +959,10 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -897,7 +981,10 @@
                 "start_time": 1.3719999999999999,
                 "end_time": 31.659,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 12,
@@ -918,7 +1005,10 @@
                 "start_time": 150.39274015722512,
                 "end_time": 161.876,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 8,
@@ -932,7 +1022,10 @@
                 "start_time": 200.993,
                 "end_time": 217.179,
                 "description": "Line -Line the bottom piece of the English muffin with lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 6,
@@ -946,14 +1039,20 @@
                 "start_time": 255.88489978228725,
                 "end_time": 286.39,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 287.29356866741904,
                 "end_time": 315.925,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -967,14 +1066,20 @@
                 "start_time": 333.72377484543995,
                 "end_time": 335.7721662944703,
                 "description": "replace -replace the top of the English muffin",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 3,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -986,49 +1091,73 @@
                 "start_time": 2.512,
                 "end_time": 52.325,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 53.122,
                 "end_time": 145.21699999999998,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
                 "start_time": 151.317,
                 "end_time": 221.44299999999998,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 237.201,
                 "end_time": 285.053,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 8,
                 "start_time": 286.8595018977654,
                 "end_time": 321.903,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 322.93492467250434,
                 "end_time": 365.751,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 368.776,
                 "end_time": 452.117,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 9,
@@ -1042,28 +1171,40 @@
                 "start_time": 472.466,
                 "end_time": 483.51,
                 "description": "Place -Place the egg from the cup over the lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 7,
                 "start_time": 483.522,
                 "end_time": 488.79,
                 "description": "replace -replace the top of the English muffin",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -1075,28 +1216,42 @@
                 "start_time": 2.443475113605638,
                 "end_time": 47.181,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 56.075,
                 "end_time": 90.923,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 94.8443532677578,
                 "end_time": 183.102,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Temperature Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 185.72548013647983,
                 "end_time": 254.974,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 12,
@@ -1110,7 +1265,10 @@
                 "start_time": 326.159,
                 "end_time": 365.843,
                 "description": "Line -Line the bottom piece of the English muffin with lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 11,
@@ -1124,7 +1282,11 @@
                 "start_time": 393.138,
                 "end_time": 430.408,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 5,
@@ -1138,7 +1300,10 @@
                 "start_time": 481.292,
                 "end_time": 586.739,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -1164,28 +1329,44 @@
                 "start_time": 0.071,
                 "end_time": 31.87,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 33.325,
                 "end_time": 122.061,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Temperature Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": 62.116,
                 "end_time": 136.67,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 3,
                 "start_time": 137.161,
                 "end_time": 147.652,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 12,
@@ -1199,21 +1380,30 @@
                 "start_time": 202.461,
                 "end_time": 228.506,
                 "description": "Line -Line the bottom piece of the English muffin with lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 8,
                 "start_time": 229.025,
                 "end_time": 274.524,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 246.315,
                 "end_time": 291.04200000000003,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
@@ -1234,7 +1424,10 @@
                 "start_time": 355.451,
                 "end_time": 377.415,
                 "description": "Place -Place the egg from the cup over the lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 7,
@@ -1253,21 +1446,31 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 12.057,
                 "end_time": 58.423,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors":[
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 61,
                 "end_time": 112,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Temperature Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 11,
@@ -1281,7 +1484,10 @@
                 "start_time": 141.036,
                 "end_time": 163.375,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 8,
@@ -1302,21 +1508,33 @@
                 "start_time": 246.351,
                 "end_time": 317.205,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 326.839,
                 "end_time": 365.595,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 335.693,
                 "end_time": 387.254,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -1342,49 +1560,73 @@
                 "start_time": 2.104336428661891,
                 "end_time": 31.173,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 5,
                 "start_time": 36.842,
                 "end_time": 74.629,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 75.11423669668774,
                 "end_time": 101.798,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 99.89566498609601,
                 "end_time": 147.55225785034264,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 160.51485110941772,
                 "end_time": 183.5806420557131,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 190.055,
                 "end_time": 218.155,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Temperature Error",
+                    "Timing Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": 218.27464166088464,
                 "end_time": 231.42786129141672,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 8,
@@ -1398,21 +1640,31 @@
                 "start_time": 282.3251024704321,
                 "end_time": 315.4940911039478,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 9,
                 "start_time": 316.2565965897757,
                 "end_time": 346.94744239435056,
                 "description": "Line -Line the bottom piece of the English muffin with lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 2,
                 "start_time": 354.953749995544,
                 "end_time": 369.250727854818,
                 "description": "Place -Place the egg from the cup over the lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 7,
@@ -1431,42 +1683,63 @@
                 "start_time": 9.562,
                 "end_time": 48.19,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 49.834,
                 "end_time": 150.827,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 5,
                 "start_time": 159.142,
                 "end_time": 255.89,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 262.26800000000003,
                 "end_time": 373.352,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 8,
                 "start_time": 380.022,
                 "end_time": 413.654,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 422,
                 "end_time": 469.314,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 9,
@@ -1480,35 +1753,52 @@
                 "start_time": 561.933,
                 "end_time": 744.687,
                 "description": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Order Error",
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 2,
                 "start_time": -1,
                 "end_time": -1,
                 "description": "Place -Place the egg from the cup over the lettuce",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 7,
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "replace -replace the top of the English muffin",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -1520,35 +1810,51 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             },
             {
                 "step_id": 1,
                 "start_time": 18.129,
                 "end_time": 64.244,
                 "description": "Pour-Pour 1 egg into the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Order Error"
+                ]
             },
             {
                 "step_id": 4,
                 "start_time": 80.816,
                 "end_time": 185.637,
                 "description": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Temperature Error"
+                ]
             },
             {
                 "step_id": 11,
                 "start_time": 189.68529818614806,
                 "end_time": 226.833,
                 "description": "stir-stir the ramekin cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 12,
                 "start_time": 229.59961320355234,
                 "end_time": 272.37,
                 "description": "Cut -Cut the English muffin into two pieces with a knife",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error"
+                ]
             },
             {
                 "step_id": 8,
@@ -1569,21 +1875,32 @@
                 "start_time": 387.862,
                 "end_time": 459.155,
                 "description": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Measurement Error",
+                    "Technique Error"
+                ]
             },
             {
                 "step_id": 10,
                 "start_time": 479.337,
                 "end_time": 537.856,
                 "description": "Microwave -Microwave just until cheese melts, about 10 seconds",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error",
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 6,
                 "start_time": 539.9733267788879,
                 "end_time": 566.03,
                 "description": "Top -Top cup with 1 tablespoon of salsa",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Preparation Error"
+                ]
             },
             {
                 "step_id": 2,
@@ -1597,7 +1914,10 @@
                 "start_time": -1.0,
                 "end_time": -1.0,
                 "description": "replace -replace the top of the English muffin",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Missing Error"
+                ]
             }
         ]
     },
@@ -1686,7 +2006,10 @@
                 "start_time": 843,
                 "end_time": 1204.6,
                 "description": "Microwave-Microwave the plate, covered, on high for 1.5 minutes",
-                "has_errors": true
+                "has_errors": true,
+                "errors": [
+                    "Timing Error"
+                ]
             },
             {
                 "step_id": 18,
