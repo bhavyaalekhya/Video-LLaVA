@@ -41,7 +41,6 @@ def ground_truth(name, video, normal_annot, questions):
     video_steps_desc = [step['description'] for step in steps]
     common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     q = len(questions)
-    print(questions)
     followup = [len(j['followup']) for i, j in enumerate(questions)]
     total_length = q + sum(followup)
 
@@ -99,7 +98,7 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
         name = v.split('_')
         gt_name = name[0] + '_' + name[1]
-        g = ground_truth(name[0], step_annot[gt_name], n_annot, qs[name[0]+'_x'])
+        g = ground_truth(name[0], step_annot[gt_name], n_annot, qs[name[0]+'_x']['questions'])
         g_truth.append(g)
         pass
 
