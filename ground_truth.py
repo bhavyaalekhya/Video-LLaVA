@@ -112,13 +112,13 @@ def error_gt(video_dir, q_file, error_annot, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    m_file = './error_prompts/order_error.json'
+    m_file = './error_prompts/preparation_error.json'
     error_annot_file = './error_annotations.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Missing error type: ")
-    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Order Error')
+    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Preparation Error')
 
 if __name__ == "__main__":
     
