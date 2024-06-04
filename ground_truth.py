@@ -44,10 +44,10 @@ def ground_truth(name, video, normal_annot, questions):
     
     gt = [0] * q
 
+    print(name)
     for step in steps:
         if step['description'] in common_steps:
             index = common_steps.index(step['description'])
-            print(questions[index])
             question = questions[index]
             if step['has_errors'] and "Preparation Error" in step['errors']:
                     gt[index] = 1
