@@ -70,7 +70,8 @@ def main():
             name = v.split("_")
             gt_name = name[0] + '_' + name[1]
             related_questions = qs[name[0] + "_x"]["questions"]
-            g_t = gt(name[0], gt_f[gt_name], gt_f[gt_name], n_annot, related_questions)
+            if gt_f['recording_id']=='1_28':
+                g_t = gt(name[0], gt_f['recording_id'], gt_f['recording_id'], n_annot, related_questions)
             g_truth.append(g_t)
 
             question_ind = question_index(related_questions)
