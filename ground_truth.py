@@ -88,8 +88,8 @@ def main():
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
-    print("Missing error type: ")
-    error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
+    #print("Missing error type: ")
+    #error_gt(video_dir, m_file, error_annot_file, normal_annot_file, steps, 'Missing Error')
 
     print("Order error type: ")
     error_gt(video_dir, o_file, error_annot_file, normal_annot_file, steps, 'Order Error')
