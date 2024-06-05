@@ -87,7 +87,7 @@ def data_file(data, filename):
 
 def main():
     disable_torch_init()
-    video_dir = '/ptg/rohith/resolution_360p/'
+    video_dir = '/home/ptg/ptg/rohith/resolution_360p/'
     questions_file = './error_prompts/technique_error.json'
     gt_file = './step_annotations.json'
     normal_annot = './normal_videos.json'
