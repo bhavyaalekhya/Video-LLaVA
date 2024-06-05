@@ -48,11 +48,12 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
     g_truth = []
 
     for v in tqdm(os.listdir(video_dir), desc="Processing videos"):
-        name = v.split('_')
-        gt_name = name[0] + '_' + name[1]
-        g = ground_truth(name[0], step_annot[gt_name], n_annot, qs[name[0]+'_x']['questions'])
-        g_truth.append(g)
-        pass
+        if '.DS_Store' not in v:
+            name = v.split('_')
+            gt_name = name[0] + '_' + name[1]
+            g = ground_truth(name[0], step_annot[gt_name], n_annot, qs[name[0]+'_x']['questions'])
+            g_truth.append(g)
+            pass
 
     g_truth = flatten(g_truth)
     print(f'{error_type} ground_truth: ', g_truth)
@@ -68,7 +69,7 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 
 def main():
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
+    video_dir = '/Users/bhavyaalekhya/Desktop/Thesis/dataset/'
     m_file = './error_prompts/measurement_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
