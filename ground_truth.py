@@ -3,24 +3,27 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-def ground_truth(name, video, normal_annot, questions):
+def ground_truth(self, name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
     normal = name + '_x'
     n_steps = normal_annot[normal]['steps']
+    n_steps_desc = []
+
+    for step in n_steps:
+        n_steps_desc.append(step['description'])
+
+    video_steps_desc = [step['description'] for step in steps]
+    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     
-    # Creating a mapping from step descriptions to their index in the questions list
-    question_mapping = {question['q'].split(' ', 1)[1].split('?')[0].strip(): i for i, question in enumerate(questions)}
-    
-    # Initializing ground truth with 0s
     gt = [0] * len(questions)
-    
+
     for step in steps:
-        step_desc = step['description'].split(' -', 1)[-1].strip()  # Extracting the step description
-        for q_desc, q_index in question_mapping.items():
+        if step['description'] in common_steps:
+            index = common_steps.index(step['description'])
             if step['has_errors'] and "Preparation Error" in step['errors']:
-                gt[q_index] = 1
-    
+                gt[index] = 1
+
     return gt
 
 def question_index(related_questions):
