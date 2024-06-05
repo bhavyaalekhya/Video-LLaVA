@@ -69,7 +69,7 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 
 def main():
-    video_dir = '/Users/bhavyaalekhya/Desktop/Thesis/dataset/'
+    video_dir = '/Users/bhavyaalekhya/Desktop/Thesis/dataset/resolution_360p'
     m_file = './error_prompts/measurement_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
