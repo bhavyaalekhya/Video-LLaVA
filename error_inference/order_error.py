@@ -126,7 +126,7 @@ def main():
     normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
-    device = 'cuda:1ß'
+    device = 'cuda:1'
     output_file = './order_error.txt'
     load_4bit, load_8bit = True, False
 
