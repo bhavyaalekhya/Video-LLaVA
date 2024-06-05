@@ -88,13 +88,14 @@ def question_index(related_questions):
         index_counter += 1
     return question_to_index
 
+def val(ans):
+    if 'yes' in ans or 'not' not in ans:
+        return 0
+    else:
+        return 1
+    
 def op_val(ans, correctans, q_type):
-    if q_type=='yes_no':
-        if 'yes' in ans or 'not' not in ans:
-            return 0
-        else:
-            return 1
-    elif q_type=='option':
+    if q_type=='option':
         if correctans in ans:
             return 0
         else:
@@ -144,21 +145,22 @@ def main():
         # Iterate over the related questions with progress tracking using tqdm
         for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
             inp1 = steps['q']
-            if 'correctans' not in steps.keys():
-                q_type = 'yes_no'
-            else:
-                correctans = steps['correctans']
-                q_type = 'option'
             pred = process_video(video, inp1, tokenizer, model, processor)
             pred = pred.lower()
             print(pred)
-            pred_op[question_ind[inp1]] = op_val(pred, correctans, q_type)
+            if 'correctans' not in steps.keys():
+                q_type = 'yes_no'
+                pred_op[question_ind[inp1]] = val(pred)
+            else:
+                correctans = steps['correctans']
+                q_type = 'option'
+                pred_op[question_ind[inp1]] = op_val(pred, correctans, q_type)
             if 'followup' in steps.keys():
                 for q in steps['followup']:
                     inp2 = q
                     pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
                     print(pred2)
-                    pred_op[question_ind[inp2]] = op_val(pred2, correctans, q_type)
+                    pred_op[question_ind[inp2]] = val(pred2)
         
         predicted.append(pred_op)
 
