@@ -54,30 +54,28 @@ def process_video(video_path, question, tokenizer, model, processor):
 def flatten(l):
     return [label for sublist in l for label in sublist]
 
-def ground_truth(name, video, normal_annot, questions):
-    gt = []
-    steps = video['steps']
-    normal = name + '_x'
-    n_steps = normal_annot[normal]['steps']
-    n_steps_desc = []
+def ground_truth(self, name, video, normal_annot, questions):
+        gt = []
+        steps = video['steps']
+        normal = name + '_x'
+        n_steps = normal_annot[normal]['steps']
+        n_steps_desc = []
 
-    for step in n_steps:
-        n_steps_desc.append(step['description'])
+        for step in n_steps:
+            n_steps_desc.append(step['description'])
 
-    video_steps_desc = [step['description'] for step in steps]
-    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-    q = len(questions)
-    
-    gt = [0] * q
+        video_steps_desc = [step['description'] for step in steps]
+        common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
+        
+        gt = [0] * len(questions)
 
-    for step in steps:
-        if step['description'] in common_steps:
-            index = n_steps_desc.index(step['description'])
-            if index < q:
+        for step in steps:
+            if step['description'] in common_steps:
+                index = common_steps.index(step['description'])
                 if step['has_errors'] and "Preparation Error" in step['errors']:
                     gt[index] = 1
 
-    return gt
+        return gt
 
 def question_index(related_questions):
     question_to_index = {}
