@@ -18,7 +18,7 @@ def ground_truth(name, video, normal_annot, questions):
     for step in steps:
         step_desc = step['description'].split(' -', 1)[-1].strip()  # Extracting the step description
         for q_desc, q_index in question_mapping.items():
-            if q_desc in step_desc and step['has_errors'] and "Preparation Error" in step['errors']:
+            if step['has_errors'] and "Preparation Error" in step['errors']:
                 gt[q_index] = 1
     
     return gt
