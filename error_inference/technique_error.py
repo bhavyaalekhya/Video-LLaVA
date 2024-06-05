@@ -93,7 +93,7 @@ def main():
     normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
-    device = 'cuda'
+    device = 'cuda: 0'
     output_file = './error_inference/technique_error.txt'
     load_4bit, load_8bit = True, False
 
