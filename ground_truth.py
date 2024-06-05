@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-def ground_truth(self, name, video, normal_annot, questions):
+def ground_truth(name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
     normal = name + '_x'
@@ -58,14 +58,7 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
     g_truth = flatten(g_truth)
     print(f'{error_type} ground_truth: ', g_truth)
 
-    output_name = "_".join(error_type.lower().split(" "))
-
-    output_name = './' + output_name + '.txt'
-
-    content = f'Ground Truth: {g_truth}'
-
-    with open(output_name, 'w') as file:
-        file.write(content)
+    print(len(g_truth))
 
 
 def main():
