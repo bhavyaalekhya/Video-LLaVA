@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-def ground_truth(self, name, video, normal_annot, questions):
+def ground_truth(name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
     normal = name + '_x'
