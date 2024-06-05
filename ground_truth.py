@@ -63,12 +63,12 @@ def error_gt(video_dir, q_file, normal_annot, steps, error_type):
 
 def main():
     video_dir = '/Users/bhavyaalekhya/Desktop/Thesis/dataset/resolution_360p'
-    m_file = './error_prompts/measurement_error.json'
+    m_file = './error_prompts/preparation_error.json'
     normal_annot_file = './normal_videos.json'
     steps = './step_annotations.json'
 
     print("Preparation error type: ")
-    error_gt(video_dir, m_file, normal_annot_file, steps, 'Measurement Error')
+    error_gt(video_dir, m_file, normal_annot_file, steps, 'Preparation Error')
 
 if __name__ == "__main__":
     main()
