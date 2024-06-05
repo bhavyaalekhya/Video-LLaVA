@@ -3,52 +3,24 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-def gt(name, video, error_annot, normal_annot, questions, error_type):
-    gt = []
-    steps = video['steps']
-    error_steps = error_annot['step_annotations']
-    normal = name + '_x'
-    n_steps = normal_annot[normal]['steps']
-    n_steps_desc = [step['description'] for step in n_steps]
-
-    video_steps_desc = [step['description'] for step in steps]
-    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
-
-    question_map = {q: i for i, q in enumerate(questions)}
-
-    # Initialize gt with zeros for the length of common steps
-    gt = [0] * len(common_steps)
-
-    for step in error_steps:
-        if step['description'] in common_steps:
-            for error in step.get('errors', []):
-                if error['tag'] == 'Order Error':
-                    index = common_steps.index(step['description'])
-                    gt[index] = 1
-
-    return gt
-
-def ground_truth(name, video, normal_annot, questions):
+def ground_truth(self, name, video, normal_annot, questions):
     gt = []
     steps = video['steps']
     normal = name + '_x'
     n_steps = normal_annot[normal]['steps']
-    n_steps_desc = []
-
-    for step in n_steps:
-        n_steps_desc.append(step['description'])
-
-    video_steps_desc = [step['description'] for step in steps]
-    common_steps = list(set(n_steps_desc).intersection(video_steps_desc))
     
+    # Creating a mapping from step descriptions to their index in the questions list
+    question_mapping = {question['q'].split(' ', 1)[1].split('?')[0].strip(): i for i, question in enumerate(questions)}
+    
+    # Initializing ground truth with 0s
     gt = [0] * len(questions)
-
+    
     for step in steps:
-        if step['description'] in common_steps:
-            index = common_steps.index(step['description'])
-            if step['has_errors'] and "Measurement Error" in step['errors']:
-                gt[index] = 1
-
+        step_desc = step['description'].split(' -', 1)[-1].strip()  # Extracting the step description
+        for q_desc, q_index in question_mapping.items():
+            if q_desc in step_desc and step['has_errors'] and "Preparation Error" in step['errors']:
+                gt[q_index] = 1
+    
     return gt
 
 def question_index(related_questions):
