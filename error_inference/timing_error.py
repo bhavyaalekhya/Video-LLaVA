@@ -101,13 +101,13 @@ def write_recur(op_file, video, pred):
 
 def main():
     disable_torch_init()
-    video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
+    video_dir = '/home/ptg/ptg/rohith/resolution_360p/'
     questions_file = './error_prompts/timing_error.json'
     gt_file = './step_annotations.json'
     normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
-    device = 'cuda'
+    device = 'cuda:0'
     output_file = 'timing_error.txt'
     op = 'timing_recur.txt'
     load_4bit, load_8bit = True, False
@@ -139,17 +139,18 @@ def main():
 
         # Iterate over the related questions with progress tracking using tqdm
         for steps in tqdm(related_questions, desc=f"Processing questions for {v}", leave=False):
+            ques = steps['q']
             inp1 = steps['q'] + " Answer with a yes or no."
             pred = process_video(video, inp1, tokenizer, model, processor)
             pred = pred.lower()
             print(pred)
-            pred_op[question_ind[inp1]] = op_val(pred)
+            pred_op[question_ind[ques]] = op_val(pred)
             if 'followup' in steps.keys():
                 for question in steps['followup']:
                     inp2 = question + " Answer with a yes or no."
                     pred2 = process_video(video, inp2, tokenizer, model, processor).lower()
                     print(pred2)
-                    pred_op[question_ind[inp2]] = op_val(pred2)
+                    pred_op[question_ind[question]] = op_val(pred2)
         
         write_recur(op, pred)
         predicted.append(pred_op)
