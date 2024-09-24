@@ -112,7 +112,7 @@ def main():
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
-    output_file = './error_inference/measurement_error.txt'
+    output_file = './videollava_metrics/measurement_error.txt'
     load_4bit, load_8bit = True, False
 
     tokenizer, model, processor = load_model(model_path, device, cache_dir, load_4bit, load_8bit)

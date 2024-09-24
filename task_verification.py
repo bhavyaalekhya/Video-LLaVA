@@ -11,10 +11,6 @@ from videollava.model.builder import load_pretrained_model
 from videollava.utils import disable_torch_init
 from videollava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
-wandb.init(
-    project="Task_Verification",
-    entity="vsbhavyaalekhya"
-)
 
 def load_model(model_path, device, cache_dir, load_4bit=True, load_8bit=False):
     model_name = get_model_name_from_path(model_path)
@@ -73,7 +69,6 @@ def accuracy(pred_flat, gt_flat):
     }
 
 def ground_truth(name, video, normal_annot, questions):
-    gt = []
     steps = video['steps']
     normal = name + '_x'
     n_steps = normal_annot[normal]['steps']
@@ -101,13 +96,13 @@ def data_file(data, filename):
 def main():
     disable_torch_init()
     video_dir = '/data/rohith/captain_cook/videos/gopro/resolution_360p/'
-    questions_file = './questions.json'
-    gt_file = './step_annotations.json'
+    questions_file = 'json_files/questions.json'
+    gt_file = 'json_files/step_annotations.json'
     normal_annot = './normal_videos.json'
     model_path = 'LanguageBind/Video-LLaVA-7B'
     cache_dir = 'cache_dir'
     device = 'cuda'
-    output_file = './metrics.csv'
+    output_file = './videollava_metrics/variant_1.txt'
     load_4bit, load_8bit = True, False
 
     tokenizer, model, processor = load_model(model_path, device, cache_dir, load_4bit, load_8bit)
@@ -155,36 +150,15 @@ def main():
         
         predicted.append(pred_op)
 
-    # Validate that predicted and g_truth are lists of lists
-    assert all(isinstance(i, list) for i in predicted), "predicted is not a list of lists"
-    assert all(isinstance(i, list) for i in g_truth), "g_truth is not a list of lists"
-
     predicted = flatten(predicted)
     g_truth = flatten(g_truth)
-    print('predicted: ',predicted)
-    print('ground_truth: ',g_truth)
-    metrics = accuracy(g_truth, predicted)
 
-    wandb.log({'value':'total dataset', 'accuracy': metrics['accuracy'], 'recall': metrics['recall'], 'f1_score': metrics['f1_score'], 'precision': metrics['precision']})
-
-    print("Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision}".format(
-        accuracy=metrics['accuracy'],
-        f1_score=metrics['f1_score'],
-        recall=metrics['recall'],
-        precision=metrics['precision']
-        )
-    )
-
-    content = "Accuracy: {accuracy} \n F1: {f1_score} \n Recall: {recall} \n Precision: {precision} \n Ground Truth: {g_truth} \n Predicted: {predicted}".format(
-        accuracy=metrics['accuracy'],
-        f1_score=metrics['f1_score'],
-        recall=metrics['recall'],
-        precision=metrics['precision'],
+    content = "Ground Truth: {g_truth} \n Predicted: {predicted}".format(
         g_truth = g_truth,
         predicted = predicted
     )
 
-    with open('data_metrics.txt', 'w') as file:
+    with open(output_file, 'w') as file:
         file.write(content) 
            
 if __name__ == '__main__':
